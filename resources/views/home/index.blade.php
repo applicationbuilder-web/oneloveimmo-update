@@ -12,6 +12,8 @@
 
     @include('home.sections.services')
 
+    @include('home.sections.projects')
+
     @include('home.sections.statistics')
 
     @include('home.sections.testimonials')
