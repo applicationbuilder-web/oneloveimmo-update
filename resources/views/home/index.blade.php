@@ -4,22 +4,16 @@
 
 @section('content')
 
-<section class="py-5">
-    <div class="container text-center">
+    @include('home.sections.hero')
 
-        <h1 class="display-4 fw-bold">
-            Bienvenue sur OneLove Immo
-        </h1>
+    @include('home.sections.search')
 
-        <p class="lead mt-3">
-            Trouvez la maison de vos rêves en toute simplicité.
-        </p>
+    @include('home.sections.featured-properties')
 
-        <a href="#" class="btn btn-warning btn-lg mt-3">
-            Découvrir nos biens
-        </a>
+    @include('home.sections.services')
 
-    </div>
-</section>
+    @include('home.sections.statistics')
+
+    @include('home.sections.testimonials')
 
 @endsection
