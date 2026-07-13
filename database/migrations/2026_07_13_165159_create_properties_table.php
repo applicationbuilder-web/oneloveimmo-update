@@ -39,6 +39,9 @@ return new class extends Migration
                 'a_vendre',
                 'a_louer'
             ]);
+            $table->foreignId('category_id')
+                ->constrained()
+                ->cascadeOnDelete();
 
             $table->string('image')->nullable();
 

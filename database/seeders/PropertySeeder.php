@@ -4,13 +4,19 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Property;
+use App\Models\Category;
 
 class PropertySeeder extends Seeder
 {
     public function run(): void
     {
+        $villa = Category::where('slug', 'villa')->first();
+        $appartement = Category::where('slug', 'appartement')->first();
+        $terrain = Category::where('slug', 'terrain')->first();
+
         Property::create([
 
+            'category_id' => $villa->id,
             'title' => 'Villa moderne avec piscine',
             'slug' => 'villa-moderne-avec-piscine',
             'description' => 'Magnifique villa moderne située dans un quartier résidentiel calme.',
@@ -26,9 +32,9 @@ class PropertySeeder extends Seeder
 
         ]);
 
-
         Property::create([
 
+            'category_id' => $appartement->id,
             'title' => 'Appartement luxueux',
             'slug' => 'appartement-luxueux',
             'description' => 'Appartement moderne avec toutes les commodités.',
@@ -44,9 +50,9 @@ class PropertySeeder extends Seeder
 
         ]);
 
-
         Property::create([
 
+            'category_id' => $terrain->id,
             'title' => 'Terrain résidentiel',
             'slug' => 'terrain-residentiel',
             'description' => 'Terrain idéal pour construction de maison.',
