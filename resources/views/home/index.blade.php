@@ -14,6 +14,8 @@
 
     @include('home.sections.projects')
 
+    @include('home.sections.why-us')
+
     @include('home.sections.statistics')
 
     @include('home.sections.testimonials')
