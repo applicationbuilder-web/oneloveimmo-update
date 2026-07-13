@@ -1,3 +1,5 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
 /* ===========================
    VARIABLES
 =========================== */
@@ -24,7 +26,6 @@ body{
 =========================== */
 
 .hero-section{
-
     height:90vh;
 
     background:
@@ -32,7 +33,7 @@ body{
                     rgba(0,0,0,.55)),
     url('/assets/images/hero/hero.jpg');
 
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
