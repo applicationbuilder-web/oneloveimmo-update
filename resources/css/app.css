@@ -364,3 +364,47 @@ body{
     color:#6c757d;
 
 }
+
+/*==========================================
+    STATISTICS
+==========================================*/
+
+.statistics-section{
+
+    background:#0F4C81;
+
+    color:#fff;
+
+}
+
+.stat-card{
+
+    padding:30px;
+
+}
+
+.stat-icon{
+
+    font-size:45px;
+
+    margin-bottom:20px;
+
+    color:#F97316;
+
+}
+
+.stat-card h2{
+
+    font-size:3rem;
+
+    font-weight:700;
+
+}
+
+.stat-card p{
+
+    margin-top:10px;
+
+    font-size:1.1rem;
+
+}
