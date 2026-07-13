@@ -1,57 +1,51 @@
 @extends('layouts.app')
 
-@section('title', 'Nos biens')
+@section('title', 'Nos biens immobiliers')
 
 @section('content')
 
 <div class="container py-5">
 
-    <h1 class="mb-4">
-        Nos biens immobiliers
-    </h1>
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h1 class="fw-bold">Nos biens immobiliers</h1>
+            <p class="text-muted mb-0">
+                Découvrez notre sélection de biens disponibles à la vente et à la location.
+            </p>
+        </div>
+    </div>
 
+    <div class="row g-4">
 
-    @if($properties->count() > 0)
+        @forelse ($properties as $property)
 
-        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
 
-            @foreach($properties as $property)
+                <x-property-card :property="$property" />
 
-                <div class="col-lg-4 mb-4">
+            </div>
 
-                    <div class="card shadow">
+        @empty
 
-                        <div class="card-body">
+            <div class="col-12">
 
-                            <h5>
-                                {{ $property->title }}
-                            </h5>
+                <div class="alert alert-info text-center">
 
-                            <p>
-                                {{ $property->city }}
-                            </p>
+                    <h5 class="mb-2">
+                        Aucun bien disponible
+                    </h5>
 
-                            <strong>
-                                {{ number_format($property->price, 0, ',', ' ') }} FCFA
-                            </strong>
-
-                        </div>
-
-                    </div>
+                    <p class="mb-0">
+                        Les biens immobiliers apparaîtront ici dès qu'ils seront ajoutés.
+                    </p>
 
                 </div>
 
-            @endforeach
+            </div>
 
-        </div>
+        @endforelse
 
-    @else
-
-        <p>
-            Aucun bien disponible pour le moment.
-        </p>
-
-    @endif
+    </div>
 
 </div>
 
