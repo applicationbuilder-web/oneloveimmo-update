@@ -408,3 +408,98 @@ body{
     font-size:1.1rem;
 
 }
+/*==========================================
+ADMIN
+==========================================*/
+
+.admin-wrapper{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+.admin-sidebar{
+
+    width:260px;
+
+    background:#0F4C81;
+
+    color:#fff;
+
+    padding:30px;
+
+}
+
+.admin-sidebar .logo{
+
+    margin-bottom:40px;
+
+    font-weight:700;
+
+}
+
+.admin-sidebar ul{
+
+    list-style:none;
+
+    padding:0;
+
+}
+
+.admin-sidebar li{
+
+    margin:18px 0;
+
+}
+
+.admin-sidebar a{
+
+    color:#fff;
+
+    text-decoration:none;
+
+    display:block;
+
+    transition:.3s;
+
+}
+
+.admin-sidebar a:hover{
+
+    color:#F97316;
+
+    padding-left:10px;
+
+}
+
+.admin-content{
+
+    flex:1;
+
+    background:#F4F6F9;
+
+}
+
+.admin-topbar{
+
+    background:#fff;
+
+    padding:20px 30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+
+}
+
+.admin-page{
+
+    padding:30px;
+
+}
