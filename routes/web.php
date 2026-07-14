@@ -6,6 +6,7 @@ use App\Http\Controllers\Front\PropertyController;
 use App\Http\Controllers\Front\ConstructionController;
 use App\Models\Property;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -21,7 +22,7 @@ Route::get('/properties', [PropertyController::class, 'index'])
 
 Route::get('/properties/{property}', [PropertyController::class, 'show'])
     ->name('properties.show');
-    
+
 Route::get('/construction', [ConstructionController::class, 'index'])
     ->name('construction.index');
 
@@ -30,6 +31,11 @@ Route::get('/properties/{property}', [PropertyController::class, 'show'])
 
 Route::prefix('admin')->group(function () {
 
-     Route::get('/dashboard', [DashboardController::class, 'index'])
+    Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('admin.dashboard');
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::resource('properties', AdminPropertyController::class);
 });

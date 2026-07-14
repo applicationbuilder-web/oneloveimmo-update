@@ -10,12 +10,12 @@ class PropertyController extends Controller
     /**
      * Afficher la liste des biens
      */
-    public function index()
-    {
-        $properties = Property::latest()->get();
+  public function index()
+{
+    $properties = Property::latest()->paginate(10);
 
-        return view('properties.index', compact('properties'));
-    }
+    return view('admin.properties.index', compact('properties'));
+}
 
 
     /**
