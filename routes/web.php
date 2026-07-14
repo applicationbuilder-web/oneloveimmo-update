@@ -39,3 +39,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('properties', AdminPropertyController::class);
 });
+// Front
+Route::get('/properties', [PropertyController::class, 'index'])
+    ->name('properties.index');
+
+// Admin
+Route::prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::resource('properties', AdminPropertyController::class);
+    });

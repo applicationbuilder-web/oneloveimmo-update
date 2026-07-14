@@ -1,54 +1,129 @@
-@extends('layouts.admin')
+<tbody>
 
-@section('title','Gestion des biens')
+@forelse($properties as $property)
 
-@section('content')
+<tr>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+    <td>
 
-    <h2>Gestion des biens</h2>
+        {{ $property->id }}
 
-    <a href="{{ route('admin.properties.create') }}"
-       class="btn btn-primary">
+    </td>
 
-        <i class="fa-solid fa-plus"></i>
+    <td>
 
-        Ajouter un bien
+        <img
+            src="{{ asset('assets/images/properties/'.$property->image) }}"
+            width="100"
+            class="rounded">
 
-    </a>
+    </td>
+
+    <td>
+
+        {{ $property->title }}
+
+    </td>
+
+    <td>
+
+        {{ $property->category?->name ?? '-' }}
+
+    </td>
+
+    <td>
+
+        {{ $property->city }}
+
+    </td>
+
+    <td>
+
+        {{ number_format($property->price,0,',',' ') }} FCFA
+
+    </td>
+
+    <td>
+
+        @if($property->status=='a_vendre')
+
+            <span class="badge bg-success">
+
+                À vendre
+
+            </span>
+
+        @else
+
+            <span class="badge bg-warning text-dark">
+
+                À louer
+
+            </span>
+
+        @endif
+
+    </td>
+
+    <td>
+
+        <a
+            href="{{ route('admin.properties.show',$property) }}"
+            class="btn btn-info btn-sm">
+
+            <i class="fa-solid fa-eye"></i>
+
+        </a>
+
+        <a
+            href="{{ route('admin.properties.edit',$property) }}"
+            class="btn btn-warning btn-sm">
+
+            <i class="fa-solid fa-pen"></i>
+
+        </a>
+
+        <form
+            action="{{ route('admin.properties.destroy',$property) }}"
+            method="POST"
+            class="d-inline">
+
+            @csrf
+
+            @method('DELETE')
+
+            <button
+                onclick="return confirm('Supprimer ce bien ?')"
+                class="btn btn-danger btn-sm">
+
+                <i class="fa-solid fa-trash"></i>
+
+            </button>
+
+        </form>
+
+    </td>
+
+</tr>
+
+@empty
+
+<tr>
+
+    <td colspan="8" class="text-center">
+
+        Aucun bien enregistré.
+
+    </td>
+
+</tr>
+
+@endforelse
+
+<div class="mt-4">
+
+    {{ $properties->links() }}
 
 </div>
 
-<table class="table table-bordered table-hover bg-white">
-
-    <thead>
-
-        <tr>
-
-            <th>ID</th>
-
-            <th>Image</th>
-
-            <th>Titre</th>
-
-            <th>Ville</th>
-
-            <th>Prix</th>
-
-            <th>Statut</th>
-
-            <th width="180">Actions</th>
-
-        </tr>
-
-    </thead>
-
-    <tbody>
-
-        {{-- Les données arriveront dans la prochaine étape --}}
-
-    </tbody>
-
-</table>
-
-@endsection
+</tbody>
