@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Property;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use Illuminate\Support\Str;
 
 class PropertyController extends Controller
 {
@@ -36,7 +37,65 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'type' => 'required|string|max:100',
+            'city' => 'required|string|max:100',
+            'address' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'surface' => 'required|numeric|min:0',
+            'bedrooms' => 'nullable|integer|min:0',
+            'bathrooms' => 'nullable|integer|min:0',
+            'status' => 'required|in:a_vendre,a_louer',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Génération d'un slug unique
+        |--------------------------------------------------------------------------
+        */
+
+        $slug = Str::slug($validated['title']);
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (Property::where('slug', $slug)->exists()) {
+
+            $slug = $originalSlug . '-' . $count++;
+
+        }
+
+        $validated['slug'] = $slug;
+
+        /*
+        |--------------------------------------------------------------------------
+        | Upload de l'image
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->hasFile('image')) {
+
+            $validated['image'] = $request
+                ->file('image')
+                ->store('properties', 'public');
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Enregistrement
+        |--------------------------------------------------------------------------
+        */
+
+        Property::create($validated);
+
+        return redirect()
+            ->route('admin.properties.index')
+            ->with('success', 'Le bien immobilier a été ajouté avec succès.');
     }
 
     /**
@@ -48,7 +107,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Afficher le formulaire de modification.
+     * Formulaire de modification.
      */
     public function edit(Property $property)
     {

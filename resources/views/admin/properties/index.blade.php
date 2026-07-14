@@ -1,129 +1,129 @@
 <tbody>
 
-@forelse($properties as $property)
+    @forelse($properties as $property)
 
-<tr>
+        <tr>
 
-    <td>
+            <td>
+                {{ $property->id }}
+            </td>
 
-        {{ $property->id }}
+            <td>
 
-    </td>
+                @php
+                    $image = $property->image
+                        ? (str_contains($property->image, '/')
+                            ? asset('storage/' . $property->image)
+                            : asset('assets/images/properties/' . $property->image))
+                        : asset('assets/images/no-image.jpg');
+                @endphp
 
-    <td>
+                <img
+                    src="{{ $image }}"
+                    alt="{{ $property->title }}"
+                    width="100"
+                    height="80"
+                    class="rounded"
+                    style="object-fit: cover;">
 
-        <img
-            src="{{ asset('assets/images/properties/'.$property->image) }}"
-            width="100"
-            class="rounded">
+            </td>
 
-    </td>
+            <td>
+                {{ $property->title }}
+            </td>
 
-    <td>
+            <td>
+                {{ $property->category?->name ?? '-' }}
+            </td>
 
-        {{ $property->title }}
+            <td>
+                {{ $property->city }}
+            </td>
 
-    </td>
+            <td>
+                {{ number_format($property->price, 0, ',', ' ') }} FCFA
+            </td>
 
-    <td>
+            <td>
 
-        {{ $property->category?->name ?? '-' }}
+                @if($property->status == 'a_vendre')
 
-    </td>
+                    <span class="badge bg-success">
+                        À vendre
+                    </span>
 
-    <td>
+                @else
 
-        {{ $property->city }}
+                    <span class="badge bg-warning text-dark">
+                        À louer
+                    </span>
 
-    </td>
+                @endif
 
-    <td>
+            </td>
 
-        {{ number_format($property->price,0,',',' ') }} FCFA
+            <td>
 
-    </td>
+                <a
+                    href="{{ route('admin.properties.show', $property) }}"
+                    class="btn btn-info btn-sm">
 
-    <td>
+                    <i class="fa-solid fa-eye"></i>
 
-        @if($property->status=='a_vendre')
+                </a>
 
-            <span class="badge bg-success">
+                <a
+                    href="{{ route('admin.properties.edit', $property) }}"
+                    class="btn btn-warning btn-sm">
 
-                À vendre
+                    <i class="fa-solid fa-pen"></i>
 
-            </span>
+                </a>
 
-        @else
+                <form
+                    action="{{ route('admin.properties.destroy', $property) }}"
+                    method="POST"
+                    class="d-inline">
 
-            <span class="badge bg-warning text-dark">
+                    @csrf
 
-                À louer
+                    @method('DELETE')
 
-            </span>
+                    <button
+                        type="submit"
+                        class="btn btn-danger btn-sm"
+                        onclick="return confirm('Supprimer ce bien ?')">
 
-        @endif
+                        <i class="fa-solid fa-trash"></i>
 
-    </td>
+                    </button>
 
-    <td>
+                </form>
 
-        <a
-            href="{{ route('admin.properties.show',$property) }}"
-            class="btn btn-info btn-sm">
+            </td>
 
-            <i class="fa-solid fa-eye"></i>
+        </tr>
 
-        </a>
+    @empty
 
-        <a
-            href="{{ route('admin.properties.edit',$property) }}"
-            class="btn btn-warning btn-sm">
+        <tr>
 
-            <i class="fa-solid fa-pen"></i>
+            <td colspan="8" class="text-center">
 
-        </a>
+                Aucun bien enregistré.
 
-        <form
-            action="{{ route('admin.properties.destroy',$property) }}"
-            method="POST"
-            class="d-inline">
+            </td>
 
-            @csrf
+        </tr>
 
-            @method('DELETE')
+    @endforelse
 
-            <button
-                onclick="return confirm('Supprimer ce bien ?')"
-                class="btn btn-danger btn-sm">
+</tbody>
 
-                <i class="fa-solid fa-trash"></i>
-
-            </button>
-
-        </form>
-
-    </td>
-
-</tr>
-
-@empty
-
-<tr>
-
-    <td colspan="8" class="text-center">
-
-        Aucun bien enregistré.
-
-    </td>
-
-</tr>
-
-@endforelse
+</table>
 
 <div class="mt-4">
 
     {{ $properties->links() }}
 
 </div>
-
-</tbody>
