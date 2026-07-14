@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class PropertyController extends Controller
 {
@@ -25,7 +26,9 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::orderBy('name')->get();
+
+        return view('admin.properties.create', compact('categories'));
     }
 
     /**
