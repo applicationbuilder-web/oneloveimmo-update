@@ -8,18 +8,17 @@ use App\Models\Property;
 class PropertyController extends Controller
 {
     /**
-     * Afficher la liste des biens
+     * Liste des biens (Front)
      */
-  public function index()
-{
-    $properties = Property::latest()->paginate(10);
+    public function index()
+    {
+        $properties = Property::latest()->paginate(9);
 
-    return view('admin.properties.index', compact('properties'));
-}
-
+        return view('properties.index', compact('properties'));
+    }
 
     /**
-     * Afficher un bien en détail
+     * Détails d'un bien
      */
     public function show(Property $property)
     {
