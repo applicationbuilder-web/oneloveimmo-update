@@ -12,8 +12,45 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('properties', function (Blueprint $table) {
+
             $table->id();
+
+            $table->foreignId('category_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->string('title');
+
+            $table->string('slug')->unique();
+
+            $table->text('description');
+
+            $table->decimal('price', 12, 2);
+
+            $table->string('type');
+
+            $table->string('city');
+
+            $table->string('address')->nullable();
+
+            $table->integer('surface')->nullable();
+
+            $table->integer('bedrooms')->default(0);
+
+            $table->integer('bathrooms')->default(0);
+
+            $table->enum('status', [
+                'a_vendre',
+                'a_louer'
+            ]);
+
+            $table->boolean('featured')
+                ->default(false);
+
+            $table->string('image')->nullable();
+
             $table->timestamps();
+
         });
     }
 
