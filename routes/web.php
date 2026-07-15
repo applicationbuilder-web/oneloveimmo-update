@@ -12,6 +12,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\PropertyController;
 use App\Http\Controllers\Front\ConstructionController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Admin Controllers
@@ -63,5 +64,21 @@ Route::prefix('admin')
         Route::resource('categories', CategoryController::class);
 
         Route::resource('properties', AdminPropertyController::class);
-
     });
+
+/*
+|--------------------------------------------------------------------------
+| Demande de devis
+|--------------------------------------------------------------------------
+*/
+
+use App\Http\Controllers\Front\QuoteController;
+
+Route::get('/quote', [QuoteController::class, 'create'])
+    ->name('quotes.create');
+
+Route::post('/quote', [QuoteController::class, 'store'])
+    ->name('quotes.store');
+
+Route::get('/quote/success', [QuoteController::class, 'success'])
+    ->name('quotes.success');
