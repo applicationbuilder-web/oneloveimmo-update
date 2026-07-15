@@ -76,6 +76,9 @@
 
     </div>
 
+    {{-- Scripts spécifiques aux pages --}}
+    @stack('scripts')
+
 </body>
 
 </html>
