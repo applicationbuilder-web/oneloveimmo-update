@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 use App\Http\Controllers\Admin\CategoryController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Front Office
