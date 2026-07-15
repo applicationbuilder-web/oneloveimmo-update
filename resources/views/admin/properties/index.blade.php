@@ -1,122 +1,229 @@
 <tbody>
 
-    @forelse($properties as $property)
+@forelse($properties as $property)
 
-        <tr>
+<tr>
 
-            <td>
-                {{ $property->id }}
-            </td>
+    <td>
 
-            <td>
+        {{ $property->id }}
 
-                @php
-                    $image = $property->image
-                        ? (str_contains($property->image, '/')
-                            ? asset('storage/' . $property->image)
-                            : asset('assets/images/properties/' . $property->image))
-                        : asset('assets/images/no-image.jpg');
-                @endphp
+    </td>
 
-                <img
-                    src="{{ $image }}"
-                    alt="{{ $property->title }}"
-                    width="100"
-                    height="80"
-                    class="rounded"
-                    style="object-fit: cover;">
 
-            </td>
+    <td>
 
-            <td>
-                {{ $property->title }}
-            </td>
+        @php
 
-            <td>
-                {{ $property->category?->name ?? '-' }}
-            </td>
+            $image = $property->image
+                ? asset('storage/'.$property->image)
+                : asset('assets/images/no-image.jpg');
 
-            <td>
-                {{ $property->city }}
-            </td>
+        @endphp
 
-            <td>
-                {{ number_format($property->price, 0, ',', ' ') }} FCFA
-            </td>
 
-            <td>
+        <img
+            src="{{ $image }}"
+            alt="{{ $property->title }}"
+            width="100"
+            height="80"
+            class="rounded shadow-sm"
+            style="object-fit:cover;">
 
-                @if($property->status == 'a_vendre')
 
-                    <span class="badge bg-success">
-                        À vendre
-                    </span>
+    </td>
 
-                @else
 
-                    <span class="badge bg-warning text-dark">
-                        À louer
-                    </span>
+    <td>
 
-                @endif
+        <strong>
 
-            </td>
+            {{ $property->title }}
 
-            <td>
+        </strong>
 
-                <a
-                    href="{{ route('admin.properties.show', $property) }}"
-                    class="btn btn-info btn-sm">
 
-                    <i class="fa-solid fa-eye"></i>
+        @if($property->featured)
 
-                </a>
+            <br>
 
-                <a
-                    href="{{ route('admin.properties.edit', $property) }}"
-                    class="btn btn-warning btn-sm">
+            <span class="badge bg-primary mt-1">
 
-                    <i class="fa-solid fa-pen"></i>
+                ⭐ Vedette
 
-                </a>
+            </span>
 
-                <form
-                    action="{{ route('admin.properties.destroy', $property) }}"
-                    method="POST"
-                    class="d-inline">
+        @endif
 
-                    @csrf
 
-                    @method('DELETE')
+    </td>
 
-                    <button
-                        type="submit"
-                        class="btn btn-danger btn-sm"
-                        onclick="return confirm('Supprimer ce bien ?')">
 
-                        <i class="fa-solid fa-trash"></i>
+    <td>
 
-                    </button>
+        @if($property->category)
 
-                </form>
+            <span class="badge bg-secondary">
 
-            </td>
+                {{ $property->category->name }}
 
-        </tr>
+            </span>
 
-    @empty
+        @else
 
-        <tr>
+            -
 
-            <td colspan="8" class="text-center">
+        @endif
 
-                Aucun bien enregistré.
 
-            </td>
+    </td>
 
-        </tr>
 
-    @endforelse
+    <td>
+
+        <i class="fa-solid fa-location-dot text-danger"></i>
+
+        {{ $property->city }}
+
+
+    </td>
+
+
+    <td>
+
+        <strong>
+
+            {{ number_format($property->price,0,',',' ') }}
+
+        </strong>
+
+        FCFA
+
+
+    </td>
+
+
+    <td>
+
+
+        @if($property->status == 'a_vendre')
+
+
+            <span class="badge bg-success">
+
+                À vendre
+
+            </span>
+
+
+        @else
+
+
+            <span class="badge bg-warning text-dark">
+
+                À louer
+
+            </span>
+
+
+        @endif
+
+
+    </td>
+
+
+    <td>
+
+
+        <div class="d-flex gap-1">
+
+
+            <a
+                href="{{ route('admin.properties.show',$property) }}"
+                class="btn btn-info btn-sm"
+                title="Voir">
+
+
+                <i class="fa-solid fa-eye"></i>
+
+
+            </a>
+
+
+
+            <a
+                href="{{ route('admin.properties.edit',$property) }}"
+                class="btn btn-warning btn-sm"
+                title="Modifier">
+
+
+                <i class="fa-solid fa-pen"></i>
+
+
+            </a>
+
+
+
+            <form
+                action="{{ route('admin.properties.destroy',$property) }}"
+                method="POST">
+
+
+                @csrf
+
+                @method('DELETE')
+
+
+                <button
+                    type="submit"
+                    class="btn btn-danger btn-sm"
+                    title="Supprimer"
+                    onclick="return confirm('Voulez-vous supprimer ce bien ?')">
+
+
+                    <i class="fa-solid fa-trash"></i>
+
+
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+
+    </td>
+
+
+</tr>
+
+
+@empty
+
+
+<tr>
+
+    <td colspan="8" class="text-center py-4">
+
+
+        <i class="fa-solid fa-house-circle-xmark fa-2x mb-2"></i>
+
+
+        <p class="mb-0">
+
+            Aucun bien enregistré.
+
+        </p>
+
+
+    </td>
+
+</tr>
+
+
+@endforelse
+
 
 </tbody>
 
