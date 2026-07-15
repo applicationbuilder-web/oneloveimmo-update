@@ -41,10 +41,10 @@ Route::get('/properties/{property}', [PropertyController::class, 'show'])
 Route::get('/construction', [ConstructionController::class, 'index'])
     ->name('construction.index');
 
-Route::view('/about', 'front.about')
+Route::view('/about', 'about')
     ->name('about');
 
-Route::view('/contact', 'front.contact')
+Route::view('/contact', 'contact')
     ->name('contact');
 
 /*
