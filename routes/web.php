@@ -64,6 +64,8 @@ Route::prefix('admin')
         Route::resource('categories', CategoryController::class);
 
         Route::resource('properties', AdminPropertyController::class);
+
+        Route::resource('quotes', \App\Http\Controllers\Admin\QuoteController::class);
     });
 
 /*

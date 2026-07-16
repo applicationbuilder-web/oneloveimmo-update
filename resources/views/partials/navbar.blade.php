@@ -38,8 +38,13 @@
 
             </ul>
 
-            <a href="#" class="btn btn-warning px-4">
-                Se connecter
+            <a href="{{ route('quotes.create') }}"
+                class="btn btn-warning">
+
+                <i class="fa-solid fa-file-signature"></i>
+
+                Demander un devis
+
             </a>
 
         </div>
