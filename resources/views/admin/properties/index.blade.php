@@ -6,38 +6,64 @@
 
 <div class="container-fluid py-4">
 
-    <div class="card shadow border-0">
+    <div class="card shadow-sm border-0 rounded-4">
 
-        <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="card-header bg-white border-0 py-3">
 
-            <h4 class="mb-0">
-                Liste des biens immobiliers
-            </h4>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
 
-            <a href="{{ route('admin.properties.create') }}"
-                class="btn btn-success">
+                <div>
 
-                <i class="fa-solid fa-plus me-2"></i>
+                    <h3 class="fw-bold mb-1">
+                        Liste des biens immobiliers
+                    </h3>
 
-                Ajouter un bien
+                    <p class="text-muted mb-0">
+                        Gérez tous les biens enregistrés sur OneLove Immo.
+                    </p>
 
-            </a>
+                </div>
+
+                <a href="{{ route('admin.properties.create') }}"
+                   class="btn btn-success">
+
+                    <i class="fa-solid fa-plus me-2"></i>
+
+                    Ajouter un bien
+
+                </a>
+
+            </div>
 
         </div>
 
-
         <div class="card-body">
 
+            @if(session('success'))
+
+                <div class="alert alert-success alert-dismissible fade show">
+
+                    {{ session('success') }}
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            @endif
 
             <div class="table-responsive">
 
-                <table class="table table-hover align-middle text-nowrap">
+                <table class="table table-hover align-middle">
 
                     <thead class="table-light">
 
                         <tr>
 
-                            <th>ID</th>
+                            <th>#</th>
 
                             <th>Image</th>
 
@@ -51,7 +77,7 @@
 
                             <th>Statut</th>
 
-                            <th class="text-center" style="min-width: 180px;">
+                            <th class="text-center" width="170">
                                 Actions
                             </th>
 
@@ -59,222 +85,228 @@
 
                     </thead>
 
-
-
                     <tbody>
 
                         @forelse($properties as $property)
 
-                        <tr>
+                            <tr>
 
-                            <td>
+                                <td>
 
-                                {{ $property->id }}
+                                    <strong>{{ $property->id }}</strong>
 
-                            </td>
+                                </td>
 
+                                <td>
 
-                            <td>
+                                    @php
 
-                                @php
+                                        $image = $property->image
+                                            ? asset('storage/'.$property->image)
+                                            : asset('assets/images/no-image.jpg');
 
-                                $image = $property->image
-                                ? asset('storage/'.$property->image)
-                                : asset('assets/images/no-image.jpg');
+                                    @endphp
 
-                                @endphp
+                                    <img
+                                        src="{{ $image }}"
+                                        alt="{{ $property->title }}"
+                                        width="100"
+                                        height="70"
+                                        class="rounded shadow-sm"
+                                        style="object-fit:cover;">
 
+                                </td>
 
-                                <img
-                                    src="{{ $image }}"
-                                    alt="{{ $property->title }}"
-                                    width="100"
-                                    height="80"
-                                    class="rounded shadow-sm"
-                                    style="object-fit:cover;">
+                                <td>
 
+                                    <strong>
 
-                            </td>
+                                        {{ $property->title }}
 
+                                    </strong>
 
-                            <td>
+                                    @if($property->featured)
 
-                                <strong>
+                                        <br>
 
-                                    {{ $property->title }}
+                                        <span class="badge bg-primary mt-1">
 
-                                </strong>
+                                            ⭐ Vedette
 
+                                        </span>
 
-                                @if($property->featured)
+                                    @endif
 
-                                <br>
+                                </td>
 
-                                <span class="badge bg-primary mt-1">
+                                <td>
 
-                                    ⭐ Vedette
+                                    @if($property->category)
 
-                                </span>
+                                        <span class="badge bg-secondary">
 
-                                @endif
+                                            {{ $property->category->name }}
 
+                                        </span>
 
-                            </td>
+                                    @else
 
+                                        <span class="text-muted">
 
-                            <td>
+                                            Aucune
 
-                                @if($property->category)
+                                        </span>
 
-                                <span class="badge bg-secondary">
+                                    @endif
 
-                                    {{ $property->category->name }}
+                                </td>
 
-                                </span>
+                                <td>
 
-                                @else
+                                    <i class="fa-solid fa-location-dot text-danger me-1"></i>
 
-                                -
+                                    {{ $property->city }}
 
-                                @endif
+                                </td>
 
+                                <td>
 
-                            </td>
+                                    <strong>
 
+                                        {{ number_format($property->price,0,',',' ') }}
 
-                            <td>
+                                    </strong>
 
-                                <i class="fa-solid fa-location-dot text-danger"></i>
+                                    FCFA
 
-                                {{ $property->city }}
+                                </td>
 
+                                <td>
 
-                            </td>
+                                    @if($property->status == 'a_vendre')
 
+                                        <span class="badge bg-success">
 
-                            <td>
+                                            À vendre
 
-                                <strong>
+                                        </span>
 
-                                    {{ number_format($property->price,0,',',' ') }}
+                                    @else
 
-                                </strong>
+                                        <span class="badge bg-warning text-dark">
 
-                                FCFA
+                                            À louer
 
+                                        </span>
 
-                            </td>
+                                    @endif
 
+                                </td>
 
-                            <td>
+                                <td>
 
+                                    <div class="d-flex justify-content-center gap-2">
 
-                                @if($property->status == 'a_vendre')
+                                        <a
+                                            href="{{ route('admin.properties.show',$property) }}"
+                                            class="btn btn-outline-primary btn-sm rounded-circle action-btn"
+                                            title="Voir">
 
+                                            <i class="fa-solid fa-eye"></i>
 
-                                <span class="badge bg-success">
+                                        </a>
 
-                                    À vendre
+                                        <a
+                                            href="{{ route('admin.properties.edit',$property) }}"
+                                            class="btn btn-outline-warning btn-sm rounded-circle action-btn"
+                                            title="Modifier">
 
-                                </span>
+                                            <i class="fa-solid fa-pen"></i>
 
+                                        </a>
 
-                                @else
+                                        <form
+                                            action="{{ route('admin.properties.destroy',$property) }}"
+                                            method="POST">
 
+                                            @csrf
+                                            @method('DELETE')
 
-                                <span class="badge bg-warning text-dark">
+                                            <button
+                                                class="btn btn-outline-danger btn-sm rounded-circle action-btn"
+                                                onclick="return confirm('Voulez-vous vraiment supprimer ce bien ?')">
 
-                                    À louer
+                                                <i class="fa-solid fa-trash"></i>
 
-                                </span>
+                                            </button>
 
+                                        </form>
 
-                                @endif
+                                    </div>
 
+                                </td>
 
-                            </td>
-
-
-                            <td class="text-center">
-
-                                <div class="d-flex justify-content-center align-items-center">
-
-                                    <a
-                                        href="{{ route('admin.properties.show', $property) }}"
-                                        class="btn btn-outline-info btn-sm mx-1 rounded-circle action-btn"
-                                        title="Voir">
-
-                                        <i class="fa-solid fa-eye"></i>
-
-                                    </a>
-
-                                    <a
-                                        href="{{ route('admin.properties.edit', $property) }}"
-                                        class="btn btn-outline-warning btn-sm mx-1 rounded-circle action-btn"
-                                        title="Modifier">
-
-                                        <i class="fa-solid fa-pen"></i>
-
-                                    </a>
-
-                                    <form
-                                        action="{{ route('admin.properties.destroy', $property) }}"
-                                        method="POST"
-                                        class="d-inline">
-
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button
-                                            type="submit"
-                                            class="btn btn-outline-danger btn-sm mx-1 rounded-circle action-btn"
-                                            onclick="return confirm('Supprimer ce bien ?')">
-
-                                            <i class="fa-solid fa-trash"></i>
-
-                                        </button>
-
-                                    </form>
-
-                                </div>
-
-                            </td>
-
-                        </tr>
-
+                            </tr>
 
                         @empty
 
+                            <tr>
 
-                        <tr>
+                                <td colspan="8">
 
-                            <td colspan="8" class="text-center py-4">
+                                    <div class="text-center py-5">
 
+                                        <i class="fa-solid fa-house-circle-xmark fa-4x text-secondary mb-3"></i>
 
-                                <i class="fa-solid fa-house-circle-xmark fa-2x mb-2"></i>
+                                        <h5>
 
+                                            Aucun bien immobilier enregistré.
 
-                                <p class="mb-0">
+                                        </h5>
 
-                                    Aucun bien enregistré.
+                                        <p class="text-muted">
 
-                                </p>
+                                            Cliquez sur <strong>Ajouter un bien</strong> pour commencer.
 
+                                        </p>
 
-                            </td>
+                                        <a href="{{ route('admin.properties.create') }}"
+                                           class="btn btn-success mt-2">
 
-                        </tr>
+                                            <i class="fa-solid fa-plus me-2"></i>
 
+                                            Ajouter un bien
+
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
 
                         @endforelse
-
 
                     </tbody>
 
                 </table>
 
-                <div class="mt-4">
+            </div>
+
+            @if($properties->hasPages())
+
+                <div class="d-flex justify-content-center mt-4">
 
                     {{ $properties->links() }}
 
                 </div>
+
+            @endif
+
+        </div>
+
+    </div>
+
+</div>
+
+@endsection

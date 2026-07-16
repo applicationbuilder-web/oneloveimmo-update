@@ -532,3 +532,83 @@ ADMIN
     box-shadow:0 4px 12px rgba(0,0,0,.15);
 
 }
+
+
+/* ==========================================
+   ADMIN TABLES
+========================================== */
+
+.admin-page .card{
+    border:0;
+    border-radius:15px;
+}
+
+.admin-page .card-header{
+    background:#fff;
+    border-bottom:1px solid #ececec;
+    padding:18px 25px;
+}
+
+.admin-page .card-body{
+    padding:25px;
+}
+
+.admin-page table{
+    margin-bottom:0;
+}
+
+.admin-page table th{
+    background:#f8f9fa;
+    font-weight:600;
+    white-space:nowrap;
+}
+
+.admin-page table td{
+    vertical-align:middle;
+}
+
+.admin-page .pagination{
+    justify-content:center;
+    margin-top:25px;
+}
+
+/* ==========================================
+   IMAGES
+========================================== */
+
+.table img{
+    border-radius:10px;
+    object-fit:cover;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width:992px){
+
+    .admin-sidebar{
+        width:220px;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .admin-wrapper{
+        flex-direction:column;
+    }
+
+    .admin-sidebar{
+        width:100%;
+    }
+
+    .admin-topbar{
+        padding:15px 20px;
+    }
+
+    .admin-page{
+        padding:15px;
+    }
+
+}
