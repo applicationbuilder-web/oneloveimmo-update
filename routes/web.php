@@ -12,6 +12,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\PropertyController;
 use App\Http\Controllers\Front\ConstructionController;
 use App\Http\Controllers\Front\QuoteController;
+use App\Http\Controllers\Front\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ConstructionController as AdminConstructionController;
 use App\Http\Controllers\Admin\QuoteController as AdminQuoteController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +48,7 @@ Route::get('/construction', [ConstructionController::class, 'index'])
 Route::view('/about', 'about')
     ->name('about');
 
-Route::view('/contact', 'contact')
+Route::get('/contact', [ContactController::class, 'index'])
     ->name('contact');
 
 /*
@@ -85,4 +87,5 @@ Route::prefix('admin')
 
         Route::resource('constructions', AdminConstructionController::class);
 
+        Route::resource('contacts', AdminContactController::class);
     });
