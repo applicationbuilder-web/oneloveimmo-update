@@ -55,7 +55,6 @@ class ConstructionController extends Controller
             $validated['image'] = $request
                 ->file('image')
                 ->store('constructions', 'public');
-
         }
 
         Construction::create($validated);
@@ -86,7 +85,34 @@ class ConstructionController extends Controller
      */
     public function update(Request $request, Construction $construction)
     {
-        //
+        $validated = $request->validate([
+
+            'title' => 'required|max:255',
+
+            'location' => 'required|max:255',
+
+            'type' => 'required|max:255',
+
+            'status' => 'required',
+
+            'description' => 'required',
+
+            'image' => 'nullable|image|max:2048',
+
+        ]);
+
+        if ($request->hasFile('image')) {
+
+            $validated['image'] = $request
+                ->file('image')
+                ->store('constructions', 'public');
+        }
+
+        $construction->update($validated);
+
+        return redirect()
+            ->route('admin.constructions.index')
+            ->with('success', 'Projet mis à jour avec succès.');
     }
 
     /**
