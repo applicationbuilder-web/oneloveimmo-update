@@ -1,20 +1,30 @@
 @extends('layouts.admin')
 
-@section('title', 'Détail du projet')
+@section('title', 'Détails du projet')
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container-fluid py-4">
 
-    <div class="card shadow">
+    <div class="card shadow border-0">
 
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
 
-            <h3>
+            <h3 class="mb-0">
 
-                Détail du projet
+                Détails du projet
 
             </h3>
+
+            <a
+                href="{{ route('admin.constructions.index') }}"
+                class="btn btn-secondary">
+
+                <i class="fa-solid fa-arrow-left me-2"></i>
+
+                Retour
+
+            </a>
 
         </div>
 
@@ -22,7 +32,7 @@
 
             <div class="row">
 
-                <div class="col-md-5">
+                <div class="col-lg-5">
 
                     @if($construction->image)
 
@@ -34,21 +44,21 @@
 
                         <img
                             src="{{ asset('assets/images/no-image.jpg') }}"
-                            class="img-fluid rounded">
+                            class="img-fluid rounded shadow">
 
                     @endif
 
                 </div>
 
-                <div class="col-md-7">
+                <div class="col-lg-7">
 
-                    <table class="table">
+                    <table class="table table-bordered">
 
                         <tr>
 
-                            <th width="180">
+                            <th width="220">
 
-                                Titre
+                                Nom du projet
 
                             </th>
 
@@ -64,29 +74,13 @@
 
                             <th>
 
-                                Localisation
+                                Ville
 
                             </th>
 
                             <td>
 
-                                {{ $construction->location }}
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <th>
-
-                                Type
-
-                            </th>
-
-                            <td>
-
-                                {{ $construction->type }}
+                                {{ $construction->city }}
 
                             </td>
 
@@ -102,7 +96,27 @@
 
                             <td>
 
-                                {{ ucfirst(str_replace('_',' ',$construction->status)) }}
+                                <span class="badge bg-success">
+
+                                    {{ ucfirst($construction->status) }}
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>
+
+                                Date de création
+
+                            </th>
+
+                            <td>
+
+                                {{ $construction->created_at->format('d/m/Y H:i') }}
 
                             </td>
 
@@ -126,17 +140,43 @@
 
                     </table>
 
+                    <div class="mt-4">
+
+                        <a
+                            href="{{ route('admin.constructions.edit',$construction) }}"
+                            class="btn btn-warning">
+
+                            <i class="fa-solid fa-pen me-2"></i>
+
+                            Modifier
+
+                        </a>
+
+                        <form
+                            action="{{ route('admin.constructions.destroy',$construction) }}"
+                            method="POST"
+                            class="d-inline">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                class="btn btn-danger"
+                                onclick="return confirm('Supprimer ce projet ?')">
+
+                                <i class="fa-solid fa-trash me-2"></i>
+
+                                Supprimer
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
                 </div>
 
             </div>
-
-            <a
-                href="{{ route('admin.constructions.index') }}"
-                class="btn btn-secondary mt-3">
-
-                Retour
-
-            </a>
 
         </div>
 
