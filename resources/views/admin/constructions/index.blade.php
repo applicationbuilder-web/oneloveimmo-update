@@ -1,104 +1,204 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', 'Nos constructions')
+@section('title', 'Projets de construction')
 
 @section('content')
 
-<div class="container py-5">
+<div class="container-fluid py-4">
 
-    <div class="text-center mb-5">
+    <div class="card shadow border-0">
 
-        <h1 class="fw-bold">
+        <div class="card-header d-flex justify-content-between align-items-center">
 
-            Nos réalisations
+            <h4 class="mb-0">
 
-        </h1>
+                Projets de construction
 
-        <p class="text-muted">
+            </h4>
 
-            Découvrez quelques projets réalisés par OneLove Immo.
+            <a
+                href="{{ route('admin.constructions.create') }}"
+                class="btn btn-success">
 
-        </p>
+                <i class="fa-solid fa-plus me-2"></i>
 
-    </div>
+                Ajouter un projet
 
-    <div class="row g-4">
+            </a>
 
-        @forelse($constructions as $construction)
+        </div>
 
-            <div class="col-lg-4 col-md-6">
+        <div class="card-body">
 
-                <div class="card h-100 shadow-sm border-0">
+            <div class="table-responsive">
 
-                    @if($construction->image)
+                <table class="table table-hover align-middle">
 
-                        <img
-                            src="{{ asset('storage/'.$construction->image) }}"
-                            class="card-img-top"
-                            style="height:250px;object-fit:cover;">
+                    <thead class="table-dark">
 
-                    @else
+                        <tr>
 
-                        <img
-                            src="{{ asset('assets/images/no-image.jpg') }}"
-                            class="card-img-top"
-                            style="height:250px;object-fit:cover;">
+                            <th>ID</th>
 
-                    @endif
+                            <th>Image</th>
 
-                    <div class="card-body">
+                            <th>Nom</th>
 
-                        <h5 class="fw-bold">
+                            <th>Ville</th>
 
-                            {{ $construction->title }}
+                            <th>Statut</th>
 
-                        </h5>
+                            <th>Date</th>
 
-                        <p class="text-muted mb-2">
+                            <th width="180">
 
-                            <i class="fa-solid fa-location-dot text-danger"></i>
+                                Actions
 
-                            {{ $construction->location }}
+                            </th>
 
-                        </p>
+                        </tr>
 
-                        <span class="badge bg-primary mb-3">
+                    </thead>
 
-                            {{ $construction->type }}
+                    <tbody>
 
-                        </span>
+                        @forelse($constructions as $construction)
 
-                        <p>
+                        <tr>
 
-                            {{ Str::limit($construction->description,120) }}
+                            <td>
 
-                        </p>
+                                {{ $construction->id }}
 
-                    </div>
+                            </td>
 
-                </div>
+                            <td>
+
+                                @if($construction->image)
+
+                                    <img
+                                        src="{{ asset('storage/'.$construction->image) }}"
+                                        width="90"
+                                        class="rounded shadow">
+
+                                @else
+
+                                    -
+
+                                @endif
+
+                            </td>
+
+                            <td>
+
+                                <strong>
+
+                                    {{ $construction->title }}
+
+                                </strong>
+
+                            </td>
+
+                            <td>
+
+                                {{ $construction->city }}
+
+                            </td>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    {{ ucfirst($construction->status) }}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                {{ $construction->created_at->format('d/m/Y') }}
+
+                            </td>
+
+                            <td>
+
+                                <div class="d-flex gap-1">
+
+                                    <a
+                                        href="{{ route('admin.constructions.show',$construction) }}"
+                                        class="btn btn-info btn-sm">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                    </a>
+
+                                    <a
+                                        href="{{ route('admin.constructions.edit',$construction) }}"
+                                        class="btn btn-warning btn-sm">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </a>
+
+                                    <form
+                                        action="{{ route('admin.constructions.destroy',$construction) }}"
+                                        method="POST">
+
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button
+                                            class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Supprimer ce projet ?')">
+
+                                            <i class="fa-solid fa-trash"></i>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        @empty
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="text-center py-5">
+
+                                <i class="fa-solid fa-building fa-3x text-secondary mb-3"></i>
+
+                                <h5>
+
+                                    Aucun projet de construction
+
+                                </h5>
+
+                            </td>
+
+                        </tr>
+
+                        @endforelse
+
+                    </tbody>
+
+                </table>
 
             </div>
 
-        @empty
+            <div class="mt-4">
 
-            <div class="col-12">
-
-                <div class="alert alert-info text-center">
-
-                    Aucun projet disponible.
-
-                </div>
+                {{ $constructions->links() }}
 
             </div>
 
-        @endforelse
-
-    </div>
-
-    <div class="mt-5">
-
-        {{ $constructions->links() }}
+        </div>
 
     </div>
 

@@ -14,9 +14,13 @@ class ConstructionController extends Controller
      */
     public function index()
     {
-        $constructions = Construction::latest()->paginate(10);
+        $constructions = \App\Models\Construction::latest()
+            ->paginate(10);
 
-        return view('admin.constructions.index', compact('constructions'));
+        return view(
+            'admin.constructions.index',
+            compact('constructions')
+        );
     }
 
     /**
