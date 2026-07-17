@@ -87,6 +87,11 @@ Route::prefix('admin')
 
         Route::resource('quotes', AdminQuoteController::class);
 
+        Route::patch(
+            'quotes/{quote}/status',
+            [AdminQuoteController::class, 'changeStatus']
+        )->name('quotes.status');
+
         Route::resource('constructions', AdminConstructionController::class);
 
         Route::resource('contacts', AdminContactController::class);

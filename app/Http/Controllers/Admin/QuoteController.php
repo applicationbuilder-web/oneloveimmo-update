@@ -45,6 +45,34 @@ class QuoteController extends Controller
         abort(404);
     }
 
+    /**
+     * Modifier le statut d'une demande de devis.
+     */
+    public function changeStatus(Quote $quote)
+    {
+        switch ($quote->status) {
+
+            case 'nouveau':
+                $quote->status = 'en_cours';
+                break;
+
+            case 'en_cours':
+                $quote->status = 'traite';
+                break;
+
+            default:
+                $quote->status = 'nouveau';
+                break;
+        }
+
+        $quote->save();
+
+        return back()->with(
+            'success',
+            'Le statut de la demande a été mis à jour.'
+        );
+    }
+
     public function destroy(Quote $quote)
     {
         $quote->delete();

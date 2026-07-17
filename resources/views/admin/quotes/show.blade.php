@@ -84,11 +84,11 @@
 
                         @if($quote->budget)
 
-                            {{ number_format($quote->budget,0,',',' ') }} FCFA
+                        {{ number_format($quote->budget,0,',',' ') }} FCFA
 
                         @else
 
-                            -
+                        -
 
                         @endif
 
@@ -120,24 +120,24 @@
 
                         @if($quote->attachment)
 
-                            <a
-                                href="{{ asset('storage/'.$quote->attachment) }}"
-                                target="_blank"
-                                class="btn btn-outline-primary">
+                        <a
+                            href="{{ asset('storage/'.$quote->attachment) }}"
+                            target="_blank"
+                            class="btn btn-outline-primary">
 
-                                <i class="fa-solid fa-download me-2"></i>
+                            <i class="fa-solid fa-download me-2"></i>
 
-                                Télécharger le fichier
+                            Télécharger le fichier
 
-                            </a>
+                        </a>
 
                         @else
 
-                            <span class="text-muted">
+                        <span class="text-muted">
 
-                                Aucune pièce jointe
+                            Aucune pièce jointe
 
-                            </span>
+                        </span>
 
                         @endif
 
@@ -162,6 +162,25 @@
             </div>
 
         </div>
+
+        <form
+            action="{{ route('admin.quotes.status', $quote) }}"
+            method="POST"
+            class="d-inline">
+
+            @csrf
+            @method('PATCH')
+
+            <button
+                class="btn btn-warning">
+
+                <i class="fa-solid fa-rotate me-2"></i>
+
+                Changer le statut
+
+            </button>
+
+        </form>
 
         <div class="card-footer d-flex justify-content-between">
 
