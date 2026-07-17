@@ -58,12 +58,9 @@
 
         <li>
 
-            <a href="#">
-
-                <i class="fa-solid fa-building"></i>
-
-                Construction
-
+            <a href="{{ route('admin.constructions.index') }}">
+                <i class="fa-solid fa-building me-2"></i>
+                Constructions
             </a>
 
         </li>
