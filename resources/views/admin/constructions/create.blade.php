@@ -1,20 +1,30 @@
 @extends('layouts.admin')
 
-@section('title', 'Ajouter une construction')
+@section('title', 'Ajouter un projet de construction')
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container-fluid py-4">
 
-    <div class="card shadow">
+    <div class="card shadow border-0">
 
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
 
-            <h3>
+            <h4 class="mb-0">
 
                 Ajouter un projet de construction
 
-            </h3>
+            </h4>
+
+            <a
+                href="{{ route('admin.constructions.index') }}"
+                class="btn btn-secondary">
+
+                <i class="fa-solid fa-arrow-left me-2"></i>
+
+                Retour
+
+            </a>
 
         </div>
 
@@ -33,7 +43,7 @@
 
                         <label class="form-label">
 
-                            Titre
+                            Titre du projet <span class="text-danger">*</span>
 
                         </label>
 
@@ -50,7 +60,7 @@
 
                         <label class="form-label">
 
-                            Localisation
+                            Localisation <span class="text-danger">*</span>
 
                         </label>
 
@@ -59,6 +69,7 @@
                             name="location"
                             class="form-control"
                             value="{{ old('location') }}"
+                            placeholder="Brazzaville, Pointe-Noire..."
                             required>
 
                     </div>
@@ -67,7 +78,7 @@
 
                         <label class="form-label">
 
-                            Type de projet
+                            Type de projet <span class="text-danger">*</span>
 
                         </label>
 
@@ -76,7 +87,7 @@
                             name="type"
                             class="form-control"
                             value="{{ old('type') }}"
-                            placeholder="Villa, Immeuble, Bureau..."
+                            placeholder="Villa, Immeuble, Résidence..."
                             required>
 
                     </div>
@@ -93,22 +104,19 @@
                             name="status"
                             class="form-select">
 
-                            <option value="en_cours">
-
+                            <option value="en_cours"
+                                {{ old('status') == 'en_cours' ? 'selected' : '' }}>
                                 En cours
-
                             </option>
 
-                            <option value="termine">
-
+                            <option value="termine"
+                                {{ old('status') == 'termine' ? 'selected' : '' }}>
                                 Terminé
-
                             </option>
 
-                            <option value="a_venir">
-
+                            <option value="a_venir"
+                                {{ old('status') == 'a_venir' ? 'selected' : '' }}>
                                 À venir
-
                             </option>
 
                         </select>
@@ -119,14 +127,21 @@
 
                         <label class="form-label">
 
-                            Image
+                            Image du projet
 
                         </label>
 
                         <input
                             type="file"
                             name="image"
-                            class="form-control">
+                            class="form-control"
+                            accept=".jpg,.jpeg,.png,.webp">
+
+                        <small class="text-muted">
+
+                            Formats autorisés : JPG, JPEG, PNG, WEBP.
+
+                        </small>
 
                     </div>
 
@@ -134,7 +149,7 @@
 
                         <label class="form-label">
 
-                            Description
+                            Description <span class="text-danger">*</span>
 
                         </label>
 
@@ -148,22 +163,27 @@
 
                 </div>
 
-                <button
-                    class="btn btn-success">
+                <div class="d-flex gap-2">
 
-                    <i class="fa-solid fa-floppy-disk"></i>
+                    <button
+                        type="submit"
+                        class="btn btn-success">
 
-                    Enregistrer
+                        <i class="fa-solid fa-floppy-disk me-2"></i>
 
-                </button>
+                        Enregistrer
 
-                <a
-                    href="{{ route('admin.constructions.index') }}"
-                    class="btn btn-secondary">
+                    </button>
 
-                    Annuler
+                    <a
+                        href="{{ route('admin.constructions.index') }}"
+                        class="btn btn-outline-secondary">
 
-                </a>
+                        Annuler
+
+                    </a>
+
+                </div>
 
             </form>
 
