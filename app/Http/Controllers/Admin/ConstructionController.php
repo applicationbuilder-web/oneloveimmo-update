@@ -5,16 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Construction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ConstructionController extends Controller
 {
     /**
-     * Liste des réalisations.
+     * Liste des projets.
      */
     public function index()
     {
-        $constructions = \App\Models\Construction::latest()
+        $constructions = Construction::latest()
             ->paginate(10);
 
         return view(
@@ -24,7 +25,7 @@ class ConstructionController extends Controller
     }
 
     /**
-     * Formulaire d'ajout.
+     * Formulaire de création.
      */
     public function create()
     {
@@ -32,23 +33,18 @@ class ConstructionController extends Controller
     }
 
     /**
-     * Enregistrer.
+     * Enregistrement.
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
 
-            'title' => 'required|max:255',
-
-            'location' => 'required|max:255',
-
-            'type' => 'required|max:255',
-
-            'status' => 'required',
-
-            'description' => 'required',
-
-            'image' => 'nullable|image|max:2048',
+            'title'       => 'required|string|max:255',
+            'location'    => 'required|string|max:255',
+            'type'        => 'required|string|max:255',
+            'status'      => 'required',
+            'description' => 'required|string',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
         ]);
 
@@ -65,11 +61,11 @@ class ConstructionController extends Controller
 
         return redirect()
             ->route('admin.constructions.index')
-            ->with('success', 'Projet enregistré avec succès.');
+            ->with('success', 'Le projet de construction a été ajouté avec succès.');
     }
 
     /**
-     * Afficher.
+     * Détails.
      */
     public function show(Construction $construction)
     {
@@ -80,7 +76,7 @@ class ConstructionController extends Controller
     }
 
     /**
-     * Modifier.
+     * Formulaire de modification.
      */
     public function edit(Construction $construction)
     {
@@ -97,21 +93,27 @@ class ConstructionController extends Controller
     {
         $validated = $request->validate([
 
-            'title' => 'required|max:255',
-
-            'location' => 'required|max:255',
-
-            'type' => 'required|max:255',
-
-            'status' => 'required',
-
-            'description' => 'required',
-
-            'image' => 'nullable|image|max:2048',
+            'title'       => 'required|string|max:255',
+            'location'    => 'required|string|max:255',
+            'type'        => 'required|string|max:255',
+            'status'      => 'required',
+            'description' => 'required|string',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
         ]);
 
+        if ($construction->title != $validated['title']) {
+
+            $validated['slug'] = Str::slug($validated['title']);
+        }
+
         if ($request->hasFile('image')) {
+
+            if ($construction->image) {
+
+                Storage::disk('public')
+                    ->delete($construction->image);
+            }
 
             $validated['image'] = $request
                 ->file('image')
@@ -122,7 +124,7 @@ class ConstructionController extends Controller
 
         return redirect()
             ->route('admin.constructions.index')
-            ->with('success', 'Projet mis à jour avec succès.');
+            ->with('success', 'Le projet a été mis à jour avec succès.');
     }
 
     /**
@@ -130,10 +132,16 @@ class ConstructionController extends Controller
      */
     public function destroy(Construction $construction)
     {
+        if ($construction->image) {
+
+            Storage::disk('public')
+                ->delete($construction->image);
+        }
+
         $construction->delete();
 
         return redirect()
             ->route('admin.constructions.index')
-            ->with('success', 'Projet supprimé.');
+            ->with('success', 'Le projet a été supprimé avec succès.');
     }
 }
