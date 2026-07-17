@@ -1,20 +1,30 @@
 @extends('layouts.admin')
 
-@section('title', 'Modifier une construction')
+@section('title', 'Modifier un projet')
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container-fluid py-4">
 
-    <div class="card shadow">
+    <div class="card shadow border-0">
 
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
 
-            <h3>
+            <h4 class="mb-0">
 
-                Modifier un projet de construction
+                Modifier le projet de construction
 
-            </h3>
+            </h4>
+
+            <a
+                href="{{ route('admin.constructions.index') }}"
+                class="btn btn-secondary">
+
+                <i class="fa-solid fa-arrow-left me-2"></i>
+
+                Retour
+
+            </a>
 
         </div>
 
@@ -26,7 +36,6 @@
                 enctype="multipart/form-data">
 
                 @csrf
-
                 @method('PUT')
 
                 <div class="row">
@@ -35,7 +44,7 @@
 
                         <label class="form-label">
 
-                            Titre
+                            Titre du projet
 
                         </label>
 
@@ -94,75 +103,22 @@
                             name="status"
                             class="form-select">
 
-                            <option
-                                value="en_cours"
+                            <option value="en_cours"
                                 {{ old('status', $construction->status) == 'en_cours' ? 'selected' : '' }}>
-
                                 En cours
-
                             </option>
 
-                            <option
-                                value="termine"
+                            <option value="termine"
                                 {{ old('status', $construction->status) == 'termine' ? 'selected' : '' }}>
-
                                 Terminé
-
                             </option>
 
-                            <option
-                                value="a_venir"
+                            <option value="a_venir"
                                 {{ old('status', $construction->status) == 'a_venir' ? 'selected' : '' }}>
-
                                 À venir
-
                             </option>
 
                         </select>
-
-                    </div>
-
-                    <div class="col-md-12 mb-3">
-
-                        <label class="form-label">
-
-                            Image actuelle
-
-                        </label>
-
-                        <br>
-
-                        @if($construction->image)
-
-                            <img
-                                src="{{ asset('storage/' . $construction->image) }}"
-                                class="img-thumbnail mb-3"
-                                width="220">
-
-                        @else
-
-                            <p class="text-muted">
-
-                                Aucune image.
-
-                            </p>
-
-                        @endif
-
-                    </div>
-
-                    <div class="col-md-12 mb-3">
-
-                        <label class="form-label">
-
-                            Nouvelle image
-
-                        </label>
-
-                        <input
-                            type="file"
-                            name="image"
-                            class="form-control">
 
                     </div>
 
@@ -182,25 +138,81 @@
 
                     </div>
 
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            Nouvelle image
+
+                        </label>
+
+                        <input
+                            type="file"
+                            name="image"
+                            class="form-control">
+
+                        <small class="text-muted">
+
+                            Laissez vide pour conserver l'image actuelle.
+
+                        </small>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            Image actuelle
+
+                        </label>
+
+                        <div>
+
+                            @if($construction->image)
+
+                                <img
+                                    src="{{ asset('storage/'.$construction->image) }}"
+                                    class="img-fluid rounded shadow"
+                                    style="max-height:220px">
+
+                            @else
+
+                                <div class="alert alert-light border">
+
+                                    Aucune image disponible.
+
+                                </div>
+
+                            @endif
+
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <button
-                    type="submit"
-                    class="btn btn-primary">
+                <div class="mt-4">
 
-                    <i class="fa-solid fa-floppy-disk"></i>
+                    <button
+                        type="submit"
+                        class="btn btn-warning">
 
-                    Mettre à jour
+                        <i class="fa-solid fa-floppy-disk me-2"></i>
 
-                </button>
+                        Mettre à jour
 
-                <a
-                    href="{{ route('admin.constructions.index') }}"
-                    class="btn btn-secondary">
+                    </button>
 
-                    Annuler
+                    <a
+                        href="{{ route('admin.constructions.index') }}"
+                        class="btn btn-outline-secondary">
 
-                </a>
+                        Annuler
+
+                    </a>
+
+                </div>
 
             </form>
 

@@ -84,7 +84,10 @@ class ConstructionController extends Controller
      */
     public function edit(Construction $construction)
     {
-        return view('admin.constructions.edit', compact('construction'));
+        return view(
+            'admin.constructions.edit',
+            compact('construction')
+        );
     }
 
     /**
