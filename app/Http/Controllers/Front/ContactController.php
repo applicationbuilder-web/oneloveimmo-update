@@ -21,21 +21,21 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
 
-            'name' => 'required|max:255',
+            'name'    => 'required|string|max:255',
 
-            'phone' => 'nullable|max:30',
+            'phone'   => 'nullable|string|max:30',
 
-            'email' => 'required|email',
+            'email'   => 'required|email|max:255',
 
-            'subject' => 'required|max:255',
+            'subject' => 'required|string|max:255',
 
-            'message' => 'required',
+            'message' => 'required|string',
 
         ]);
 
-        Contact::create($request->all());
+        Contact::create($validated);
 
         return redirect()
             ->route('contact')

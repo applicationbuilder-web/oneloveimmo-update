@@ -94,13 +94,12 @@
 
         <li>
 
-            <a href="#">
-
+        <li>
+            <a href="{{ route('admin.contacts.index') }}">
                 <i class="fa-solid fa-envelope"></i>
-
                 Messages
-
             </a>
+        </li>
 
         </li>
 
