@@ -4,155 +4,87 @@
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container-fluid py-4">
 
-    <div class="card shadow">
+    <div class="card shadow border-0">
 
         <div class="card-header">
 
-            <h3>
+            <h4 class="mb-0">
 
-                Détail de la demande
+                <i class="fa-solid fa-file-signature text-warning me-2"></i>
 
-            </h3>
+                Détail de la demande de devis
+
+            </h4>
 
         </div>
 
         <div class="card-body">
 
-            <table class="table">
+            <div class="row">
 
-                <tr>
+                <div class="col-md-6 mb-4">
 
-                    <th width="220">
+                    <label class="fw-bold text-muted">
+                        Nom complet
+                    </label>
 
-                        Nom
+                    <p>{{ $quote->fullname }}</p>
 
-                    </th>
+                </div>
 
-                    <td>
+                <div class="col-md-6 mb-4">
 
-                        {{ $quote->fullname }}
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>
-
+                    <label class="fw-bold text-muted">
                         Téléphone
+                    </label>
 
-                    </th>
+                    <p>{{ $quote->phone }}</p>
 
-                    <td>
+                </div>
 
-                        {{ $quote->phone }}
+                <div class="col-md-6 mb-4">
 
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>
-
+                    <label class="fw-bold text-muted">
                         Email
+                    </label>
 
-                    </th>
+                    <p>{{ $quote->email ?: '-' }}</p>
 
-                    <td>
+                </div>
 
-                        {{ $quote->email ?: '-' }}
+                <div class="col-md-6 mb-4">
 
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>
-
+                    <label class="fw-bold text-muted">
                         Ville
+                    </label>
 
-                    </th>
+                    <p>{{ $quote->city }}</p>
 
-                    <td>
+                </div>
 
-                        {{ $quote->city }}
+                <div class="col-md-6 mb-4">
 
-                    </td>
+                    <label class="fw-bold text-muted">
+                        Type de projet
+                    </label>
 
-                </tr>
+                    <p>{{ $quote->project_type }}</p>
 
-                <tr>
+                </div>
 
-                    <th>
+                <div class="col-md-6 mb-4">
 
-                        Projet
-
-                    </th>
-
-                    <td>
-
-                        {{ $quote->project_type }}
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>
-
+                    <label class="fw-bold text-muted">
                         Budget
+                    </label>
 
-                    </th>
+                    <p>
 
-                    <td>
+                        @if($quote->budget)
 
-                        {{ $quote->budget ? number_format($quote->budget,0,',',' ') . ' FCFA' : '-' }}
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>
-
-                        Message
-
-                    </th>
-
-                    <td>
-
-                        {!! nl2br(e($quote->message)) !!}
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>
-
-                        Pièce jointe
-
-                    </th>
-
-                    <td>
-
-                        @if($quote->attachment)
-
-                            <a
-                                href="{{ asset('storage/'.$quote->attachment) }}"
-                                target="_blank">
-
-                                Voir le fichier
-
-                            </a>
+                            {{ number_format($quote->budget,0,',',' ') }} FCFA
 
                         @else
 
@@ -160,19 +92,107 @@
 
                         @endif
 
-                    </td>
+                    </p>
 
-                </tr>
+                </div>
 
-            </table>
+                <div class="col-md-12 mb-4">
+
+                    <label class="fw-bold text-muted">
+                        Message
+                    </label>
+
+                    <div class="border rounded p-3 bg-light">
+
+                        {!! nl2br(e($quote->message)) !!}
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 mb-4">
+
+                    <label class="fw-bold text-muted">
+                        Pièce jointe
+                    </label>
+
+                    <div>
+
+                        @if($quote->attachment)
+
+                            <a
+                                href="{{ asset('storage/'.$quote->attachment) }}"
+                                target="_blank"
+                                class="btn btn-outline-primary">
+
+                                <i class="fa-solid fa-download me-2"></i>
+
+                                Télécharger le fichier
+
+                            </a>
+
+                        @else
+
+                            <span class="text-muted">
+
+                                Aucune pièce jointe
+
+                            </span>
+
+                        @endif
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+
+                    <label class="fw-bold text-muted">
+                        Date de la demande
+                    </label>
+
+                    <p>
+
+                        {{ $quote->created_at->format('d/m/Y à H:i') }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card-footer d-flex justify-content-between">
 
             <a
                 href="{{ route('admin.quotes.index') }}"
                 class="btn btn-secondary">
 
+                <i class="fa-solid fa-arrow-left me-2"></i>
+
                 Retour
 
             </a>
+
+            <form
+                action="{{ route('admin.quotes.destroy',$quote) }}"
+                method="POST">
+
+                @csrf
+                @method('DELETE')
+
+                <button
+                    class="btn btn-danger"
+                    onclick="return confirm('Supprimer cette demande ?')">
+
+                    <i class="fa-solid fa-trash me-2"></i>
+
+                    Supprimer
+
+                </button>
+
+            </form>
 
         </div>
 
