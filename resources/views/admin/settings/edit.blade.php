@@ -7,133 +7,195 @@
 <div class="container-fluid py-4">
 
     <div class="mb-4">
+
         <h2 class="fw-bold mb-1">
             Paramètres du site
         </h2>
 
-        <p class="text-muted">
-            Gérez les informations et les éléments principaux de votre site OneLove Immo.
+        <p class="text-muted mb-0">
+            Gérez les éléments principaux de votre site OneLove Immo.
         </p>
+
     </div>
+
+
+    @if(session('success'))
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+            <i class="fa-solid fa-circle-check me-2"></i>
+
+            {{ session('success') }}
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
+
+    @endif
+
+
+    @if($errors->any())
+
+        <div class="alert alert-danger">
+
+            <strong>Erreur :</strong>
+
+            <ul class="mb-0 mt-2">
+
+                @foreach($errors->all() as $error)
+
+                    <li>{{ $error }}</li>
+
+                @endforeach
+
+            </ul>
+
+        </div>
+
+    @endif
+
 
     <div class="card border-0 shadow-sm">
 
-        <div class="card-header bg-white border-0 py-3">
-            <h5 class="fw-bold mb-0">
-                Informations générales
+        <div class="card-header bg-white border-0 py-4">
+
+            <h5 class="fw-bold mb-1">
+                Image principale du site
             </h5>
+
+            <p class="text-muted mb-0">
+                Cette image sera utilisée comme image principale du Hero de la page d'accueil.
+            </p>
+
         </div>
 
-        <div class="card-body">
 
-            <form method="POST" action="{{ route('admin.settings.update') }}">
+        <div class="card-body p-4">
+
+            <form
+                method="POST"
+                action="{{ route('admin.settings.update') }}"
+                enctype="multipart/form-data">
+
                 @csrf
+
                 @method('PUT')
 
-                <div class="row g-4">
 
-                    {{-- Nom du site --}}
-                    <div class="col-md-6">
+                {{-- IMAGE ACTUELLE --}}
 
-                        <label for="site_name" class="form-label fw-semibold">
-                            Nom du site
+                @if($settings->hero_image)
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Image actuelle
                         </label>
 
-                        <input
-                            type="text"
-                            id="site_name"
-                            name="site_name"
-                            class="form-control"
-                            value="{{ old('site_name', $settings->site_name ?? 'OneLove Immo') }}"
-                            placeholder="OneLove Immo"
-                        >
+                        <div class="mt-2">
+
+                            <img
+                                src="{{ asset('storage/' . $settings->hero_image) }}"
+                                alt="Image Hero actuelle"
+                                class="img-fluid rounded shadow-sm"
+                                style="
+                                    width: 100%;
+                                    max-width: 700px;
+                                    height: 300px;
+                                    object-fit: cover;
+                                ">
+
+                        </div>
 
                     </div>
 
-                    {{-- Email --}}
-                    <div class="col-md-6">
+                @else
 
-                        <label for="email" class="form-label fw-semibold">
-                            Adresse email
-                        </label>
+                    <div class="alert alert-info">
 
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            class="form-control"
-                            value="{{ old('email', $settings->email ?? '') }}"
-                            placeholder="contact@oneloveimmo.com"
-                        >
+                        <i class="fa-solid fa-image me-2"></i>
+
+                        Aucune image Hero n'est encore configurée.
 
                     </div>
 
-                    {{-- Téléphone --}}
-                    <div class="col-md-6">
+                @endif
 
-                        <label for="phone" class="form-label fw-semibold">
-                            Téléphone
-                        </label>
 
-                        <input
-                            type="text"
-                            id="phone"
-                            name="phone"
-                            class="form-control"
-                            value="{{ old('phone', $settings->phone ?? '') }}"
-                            placeholder="+242 06 000 00 00"
-                        >
+                {{-- NOUVELLE IMAGE --}}
 
-                    </div>
+                <div class="mb-4">
 
-                    {{-- Adresse --}}
-                    <div class="col-md-6">
+                    <label
+                        for="hero_image"
+                        class="form-label fw-semibold">
 
-                        <label for="address" class="form-label fw-semibold">
-                            Adresse
-                        </label>
+                        Nouvelle image Hero
 
-                        <input
-                            type="text"
-                            id="address"
-                            name="address"
-                            class="form-control"
-                            value="{{ old('address', $settings->address ?? '') }}"
-                            placeholder="Brazzaville, Congo"
-                        >
+                    </label>
 
-                    </div>
+                    <input
+                        type="file"
+                        name="hero_image"
+                        id="hero_image"
+                        class="form-control"
+                        accept=".jpg,.jpeg,.png,.webp">
 
-                    {{-- Description --}}
-                    <div class="col-12">
+                    <div class="form-text">
 
-                        <label for="description" class="form-label fw-semibold">
-                            Description du site
-                        </label>
-
-                        <textarea
-                            id="description"
-                            name="description"
-                            rows="4"
-                            class="form-control"
-                            placeholder="Présentation de OneLove Immo..."
-                        >{{ old('description', $settings->description ?? '') }}</textarea>
+                        Formats acceptés : JPG, JPEG, PNG, WEBP.
+                        Taille maximale : 4 Mo.
 
                     </div>
 
                 </div>
 
-                <div class="mt-4">
 
-                    <button type="submit" class="btn btn-primary px-4">
+                {{-- APERÇU --}}
 
-                        <i class="fa-solid fa-floppy-disk me-2"></i>
+                <div
+                    id="image-preview-container"
+                    class="mb-4"
+                    style="display: none;">
 
-                        Enregistrer les modifications
+                    <label class="form-label fw-semibold">
+                        Aperçu de la nouvelle image
+                    </label>
 
-                    </button>
+                    <div>
+
+                        <img
+                            id="image-preview"
+                            src="#"
+                            alt="Aperçu"
+                            class="img-fluid rounded shadow-sm"
+                            style="
+                                width: 100%;
+                                max-width: 700px;
+                                height: 300px;
+                                object-fit: cover;
+                            ">
+
+                    </div>
 
                 </div>
+
+
+                {{-- BOUTON --}}
+
+                <button
+                    type="submit"
+                    class="btn btn-primary px-4">
+
+                    <i class="fa-solid fa-cloud-arrow-up me-2"></i>
+
+                    Enregistrer l'image
+
+                </button>
 
             </form>
 
@@ -142,5 +204,45 @@
     </div>
 
 </div>
+
+
+{{-- APERÇU DE L'IMAGE AVANT ENVOI --}}
+
+<script>
+
+    const heroImageInput = document.getElementById('hero_image');
+
+    const previewContainer = document.getElementById('image-preview-container');
+
+    const previewImage = document.getElementById('image-preview');
+
+
+    heroImageInput.addEventListener('change', function(event) {
+
+        const file = event.target.files[0];
+
+        if (!file) {
+
+            previewContainer.style.display = 'none';
+
+            return;
+
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+
+            previewImage.src = e.target.result;
+
+            previewContainer.style.display = 'block';
+
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+</script>
 
 @endsection

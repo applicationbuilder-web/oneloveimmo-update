@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ConstructionController as AdminConstructionController;
 use App\Http\Controllers\Admin\QuoteController as AdminQuoteController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\SiteSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,16 +76,41 @@ Route::get('/quote/success', [QuoteController::class, 'success'])
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth'])->prefix('admin')
+Route::middleware(['auth'])
+    ->prefix('admin')
     ->name('admin.')
     ->group(function () {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Dashboard
+        |--------------------------------------------------------------------------
+        */
 
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
 
+        /*
+        |--------------------------------------------------------------------------
+        | Catégories
+        |--------------------------------------------------------------------------
+        */
+
         Route::resource('categories', CategoryController::class);
 
+        /*
+        |--------------------------------------------------------------------------
+        | Biens immobiliers
+        |--------------------------------------------------------------------------
+        */
+
         Route::resource('properties', AdminPropertyController::class);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Demandes de devis
+        |--------------------------------------------------------------------------
+        */
 
         Route::resource('quotes', AdminQuoteController::class);
 
@@ -93,9 +119,36 @@ Route::middleware(['auth'])->prefix('admin')
             [AdminQuoteController::class, 'changeStatus']
         )->name('quotes.status');
 
+        /*
+        |--------------------------------------------------------------------------
+        | Messages de contact
+        |--------------------------------------------------------------------------
+        */
+
         Route::resource('contacts', AdminContactController::class);
 
+        /*
+        |--------------------------------------------------------------------------
+        | Projets de construction
+        |--------------------------------------------------------------------------
+        */
+
         Route::resource('constructions', AdminConstructionController::class);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Paramètres du site
+        |--------------------------------------------------------------------------
+        |
+        | Gestion de l'image du Hero / Carousel de la page d'accueil.
+        |
+        */
+
+        Route::get('/settings', [SiteSettingController::class, 'edit'])
+            ->name('settings.edit');
+
+        Route::put('/settings', [SiteSettingController::class, 'update'])
+            ->name('settings.update');
     });
 
 /*

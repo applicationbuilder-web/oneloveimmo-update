@@ -16,68 +16,68 @@
 
         <div class="row g-4">
 
-            <!-- Projet 1 -->
-            <div class="col-md-4">
+            @forelse($constructions as $construction)
 
-                <div class="project-card">
+                <div class="col-md-4">
 
-                    <img src="{{ asset('assets/images/projects/project1.jpg') }}"
-                        class="img-fluid"
-                        alt="Villa moderne">
+                    <div class="project-card">
 
-                    <div class="project-overlay">
+                        @if($construction->image)
 
-                        <h4>Villa Moderne</h4>
+                            <img
+                                src="{{ asset('storage/' . $construction->image) }}"
+                                class="img-fluid"
+                                alt="{{ $construction->title }}">
 
-                        <p>Brazzaville</p>
+                        @else
 
-                    </div>
+                            <div
+                                class="d-flex align-items-center justify-content-center bg-light"
+                                style="height: 250px;">
 
-                </div>
+                                <i class="fa-solid fa-building fa-3x text-muted"></i>
 
-            </div>
+                            </div>
 
-            <!-- Projet 2 -->
-            <div class="col-md-4">
+                        @endif
 
-                <div class="project-card">
+                        <div class="project-overlay">
 
-                    <img src="{{ asset('assets/images/projects/project2.jpg') }}"
-                        class="img-fluid"
-                        alt="Immeuble">
+                            <h4>
+                                {{ $construction->title }}
+                            </h4>
 
-                    <div class="project-overlay">
+                            <p>
+                                {{ $construction->location }}
+                            </p>
 
-                        <h4>Immeuble Résidentiel</h4>
-
-                        <p>Pointe-Noire</p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Projet 3 -->
-            <div class="col-md-4">
-
-                <div class="project-card">
-
-                    <img src="{{ asset('assets/images/projects/project3.jpg') }}"
-                        class="img-fluid"
-                        alt="Construction">
-
-                    <div class="project-overlay">
-
-                        <h4>Projet de Construction</h4>
-
-                        <p>Dolisie</p>
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            @empty
+
+                <div class="col-12">
+
+                    <div class="text-center py-5">
+
+                        <i class="fa-solid fa-building fa-3x text-muted mb-3"></i>
+
+                        <h4>
+                            Aucune réalisation disponible
+                        </h4>
+
+                        <p class="text-muted">
+                            Nos projets seront bientôt présentés ici.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            @endforelse
 
         </div>
 

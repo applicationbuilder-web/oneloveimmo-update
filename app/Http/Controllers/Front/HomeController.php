@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Construction;
 
 class HomeController extends Controller
 {
@@ -11,6 +12,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.index');
+        $constructions = Construction::latest()
+            ->take(6)
+            ->get();
+
+        return view('home.index', compact('constructions'));
     }
 }
