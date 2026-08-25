@@ -72,64 +72,92 @@ body{
  HERO
 ========================================== */
 
-.hero{
+.hero {
+    position: relative;
+    min-height: calc(100vh - 80px);
 
-    padding-top:90px;
+    background-image: url('/storage/site/hero_image.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-    background:#f8f9fa;
+    display: flex;
+    align-items: center;
 
+    overflow: hidden;
 }
 
-.hero-title{
+.hero-overlay {
+    position: absolute;
+    inset: 0;
 
-    font-size:3.5rem;
-
-    font-weight:700;
-
-    color:#1E293B;
-
-    line-height:1.2;
-
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8, 25, 48, 0.88) 0%,
+            rgba(8, 25, 48, 0.72) 42%,
+            rgba(8, 25, 48, 0.25) 75%,
+            rgba(8, 25, 48, 0.10) 100%
+        );
 }
 
-.hero-text{
-
-    font-size:1.2rem;
-
-    color:#6c757d;
-
+.hero-content {
+    position: relative;
+    z-index: 2;
 }
 
-.hero-image{
+.hero-badge {
+    display: inline-block;
 
-    border-radius:25px;
+    background: #14558a;
+    color: #ffffff;
 
-    box-shadow:0 20px 50px rgba(0,0,0,.15);
+    padding: 14px 24px;
+    border-radius: 50px;
 
+    font-weight: 600;
+    font-size: 16px;
 }
 
-.hero-badge{
+.hero-title {
+    max-width: 850px;
 
-    display:inline-block;
+    color: #ffffff;
 
-    background:#0F4C81;
-
-    color:#fff;
-
-    padding:10px 20px;
-
-    border-radius:50px;
-
-    font-weight:600;
-
+    font-size: clamp(48px, 6vw, 82px);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -2px;
 }
 
-.hero-buttons .btn{
+.hero-title span {
+    color: #ffbf00;
+}
 
-    border-radius:50px;
+.hero-text {
+    max-width: 720px;
 
-    padding:14px 28px;
+    color: rgba(255, 255, 255, 0.90);
 
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.hero-buttons .btn {
+    padding: 16px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+.hero-buttons .btn-primary {
+    background: #1478ff;
+    border: none;
+}
+
+.hero-buttons .btn-warning {
+    background: #ffbf00;
+    border: none;
+    color: #111;
 }
 
 /*==========================================
