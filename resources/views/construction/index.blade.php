@@ -307,10 +307,25 @@
 
             <div class="col-lg-6 text-center">
 
-                <img
-                    src="{{ asset('assets/images/construction/construction.jpg') }}"
-                    class="img-fluid rounded shadow"
-                    alt="Construction">
+                <div class="col-lg-6 text-center">
+
+                    @if($settings && $settings->construction_image)
+
+                    <img
+                        src="{{ asset('storage/' . $settings->construction_image) }}"
+                        class="img-fluid rounded shadow"
+                        alt="Construction">
+
+                    @else
+
+                    <img
+                        src="{{ asset('assets/images/construction/construction.jpg') }}"
+                        class="img-fluid rounded shadow"
+                        alt="Construction">
+
+                    @endif
+
+                </div>
 
             </div>
 
@@ -540,4 +555,3 @@
     </div>
 
 </section>
-
