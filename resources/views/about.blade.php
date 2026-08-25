@@ -41,10 +41,21 @@
 
             <div class="col-lg-6">
 
+                @if($settings && $settings->about_image)
+
+                <img
+                    src="{{ asset('storage/'.$settings->about_image) }}"
+                    class="img-fluid rounded shadow"
+                    alt="À propos">
+
+                @else
+
                 <img
                     src="{{ asset('assets/images/about/about.jpg') }}"
                     class="img-fluid rounded shadow"
                     alt="À propos">
+
+                @endif
 
             </div>
 
