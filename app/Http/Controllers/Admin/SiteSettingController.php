@@ -29,7 +29,25 @@ class SiteSettingController extends Controller
     public function update(Request $request)
     {
         $request->validate([
+
+            // Images
             'hero_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'construction_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'about_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'project_image_1' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'project_image_2' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'project_image_3' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+
+            // Contact
+            'contact_address' => 'nullable|string|max:255',
+            'contact_phone' => 'nullable|string|max:100',
+            'contact_email' => 'nullable|email|max:255',
+
+            // Réseaux sociaux
+            'facebook_url' => 'nullable|string|max:255',
+            'instagram_url' => 'nullable|string|max:255',
+            'linkedin_url' => 'nullable|string|max:255',
+            'whatsapp_url' => 'nullable|string|max:255',
         ]);
 
         $settings = SiteSetting::first();
@@ -38,21 +56,65 @@ class SiteSettingController extends Controller
             $settings = SiteSetting::create();
         }
 
-        if ($request->hasFile('hero_image')) {
+        /*
+        |--------------------------------------------------------------------------
+        | Gestion des images
+        |--------------------------------------------------------------------------
+        */
 
-            if ($settings->hero_image) {
-                Storage::disk('public')->delete($settings->hero_image);
+        $images = [
+            'hero_image',
+            'construction_image',
+            'about_image',
+            'project_image_1',
+            'project_image_2',
+            'project_image_3',
+        ];
+
+        foreach ($images as $image) {
+
+            if ($request->hasFile($image)) {
+
+                // Supprimer l'ancienne image
+                if ($settings->$image) {
+                    Storage::disk('public')->delete($settings->$image);
+                }
+
+                // Enregistrer la nouvelle image
+                $settings->$image = $request
+                    ->file($image)
+                    ->store('site', 'public');
             }
-
-            $settings->hero_image = $request
-                ->file('hero_image')
-                ->store('site', 'public');
         }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Informations de contact
+        |--------------------------------------------------------------------------
+        */
+
+        $settings->contact_address = $request->contact_address;
+        $settings->contact_phone = $request->contact_phone;
+        $settings->contact_email = $request->contact_email;
+
+        /*
+        |--------------------------------------------------------------------------
+        | Réseaux sociaux
+        |--------------------------------------------------------------------------
+        */
+
+        $settings->facebook_url = $request->facebook_url;
+        $settings->instagram_url = $request->instagram_url;
+        $settings->linkedin_url = $request->linkedin_url;
+        $settings->whatsapp_url = $request->whatsapp_url;
 
         $settings->save();
 
         return redirect()
             ->route('admin.settings.edit')
-            ->with('success', 'Les paramètres du site ont été mis à jour avec succès.');
+            ->with(
+                'success',
+                'Les paramètres du site ont été mis à jour avec succès.'
+            );
     }
 }
