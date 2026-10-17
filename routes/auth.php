@@ -12,10 +12,15 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
+    // Inscription publique désactivée pour protéger l'espace d'administration
+    Route::get('register', function () {
+        return redirect()->route('login')
+            ->with('status', 'Les inscriptions publiques sont restreintes aux administrateurs.');
+    })->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register', function () {
+        abort(403, 'Les inscriptions publiques sont désactivées pour des raisons de sécurité.');
+    });
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');

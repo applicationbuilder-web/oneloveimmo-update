@@ -46,6 +46,9 @@ Route::get('/properties/{property}', [PropertyController::class, 'show'])
 Route::get('/construction', [ConstructionController::class, 'index'])
     ->name('construction.index');
 
+Route::get('/construction/{construction}', [ConstructionController::class, 'show'])
+    ->name('construction.show');
+
 Route::view('/about', 'about')
     ->name('about');
 
@@ -53,6 +56,7 @@ Route::get('/contact', [ContactController::class, 'index'])
     ->name('contact');
 
 Route::post('/contact', [ContactController::class, 'store'])
+    ->middleware('throttle:6,1')
     ->name('contact.store');
 
 /*
@@ -65,6 +69,7 @@ Route::get('/quote', [QuoteController::class, 'create'])
     ->name('quotes.create');
 
 Route::post('/quote', [QuoteController::class, 'store'])
+    ->middleware('throttle:6,1')
     ->name('quotes.store');
 
 Route::get('/quote/success', [QuoteController::class, 'success'])
@@ -72,11 +77,11 @@ Route::get('/quote/success', [QuoteController::class, 'success'])
 
 /*
 |--------------------------------------------------------------------------
-| ADMINISTRATION (PROTÉGÉE)
+| ADMINISTRATION (PROTÉGÉE PAR AUTH + ROLE ADMIN)
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth'])
+Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
