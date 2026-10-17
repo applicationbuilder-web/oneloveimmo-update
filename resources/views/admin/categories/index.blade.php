@@ -1,169 +1,99 @@
 @extends('layouts.admin')
 
-@section('title', 'Catégories')
+@section('title', 'Gestion des catégories')
+@section('page-title', 'Catégories')
+@section('page-subtitle', 'Gérez les catégories de biens et de services')
 
 @section('content')
 
-<div class="container-fluid py-4">
-
-    <div class="d-flex justify-content-between align-items-center mb-4">
-
-        <div>
-
-            <h2 class="fw-bold">
-                Gestion des catégories
-            </h2>
-
-            <p class="text-muted mb-0">
-                Gérez les catégories des biens et des services.
-            </p>
-
-        </div>
-
-        <a href="{{ route('admin.categories.create') }}"
-           class="btn btn-primary">
-
-            <i class="fa-solid fa-plus me-2"></i>
-
-            Nouvelle catégorie
-
-        </a>
-
+{{-- Barre supérieure d'action --}}
+<div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+    <div>
+        <span class="text-muted small">Total : <strong>{{ $categories->total() }}</strong> catégorie(s) enregistrée(s)</span>
     </div>
 
-    @if(session('success'))
+    <a href="{{ route('admin.categories.create') }}" class="adm-btn adm-btn-primary">
+        <i class="fa-solid fa-plus"></i>
+        Nouvelle catégorie
+    </a>
+</div>
 
-        <div class="alert alert-success">
-
-            {{ session('success') }}
-
+{{-- Tableau des catégories --}}
+<div class="adm-card">
+    <div class="adm-card-header d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+            <i class="fa-solid fa-layer-group text-primary"></i>
+            <span class="fw-bold" style="color:#0d1b2a;">Toutes les catégories</span>
         </div>
+    </div>
 
-    @endif
-
-    <div class="card shadow-sm border-0">
-
-        <div class="card-body">
-
-            <table class="table table-hover align-middle">
-
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-
-                        <th>Nom</th>
-
-                        <th>Icône</th>
-
-                        <th>Description</th>
-
-                        <th width="180">Actions</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
+    <div class="table-responsive">
+        <table class="adm-table">
+            <thead>
+                <tr>
+                    <th style="width:70px;">ID</th>
+                    <th style="width:70px;">Icône</th>
+                    <th>Nom de la catégorie</th>
+                    <th>Description</th>
+                    <th style="width:140px;text-align:right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
                 @forelse($categories as $category)
-
                     <tr>
-
+                        <td class="text-muted fw-bold">#{{ $category->id }}</td>
                         <td>
-
-                            {{ $category->id }}
-
+                            <div style="width:40px;height:40px;border-radius:10px;background:#eff6ff;color:var(--adm-primary);display:flex;align-items:center;justify-content:center;font-size:16px;">
+                                <i class="fa-solid {{ $category->icon ?: 'fa-folder' }}"></i>
+                            </div>
                         </td>
-
                         <td>
-
-                            <strong>{{ $category->name }}</strong>
-
-                        </td>
-
-                        <td>
-
+                            <strong style="color:#0d1b2a;font-size:14px;">{{ $category->name }}</strong>
                             @if($category->icon)
-
-                                <i class="fa-solid {{ $category->icon }}"></i>
-
-                                <span class="ms-2">{{ $category->icon }}</span>
-
-                            @else
-
-                                -
-
+                                <div class="text-muted small mt-1">
+                                    <code>{{ $category->icon }}</code>
+                                </div>
                             @endif
-
                         </td>
-
-                        <td>
-
-                            {{ $category->description ?? '-' }}
-
+                        <td style="color:#64748b;max-width:320px;">
+                            {{ Str::limit($category->description, 90) ?: '-' }}
                         </td>
+                        <td style="text-align:right;">
+                            <div class="d-inline-flex gap-2">
+                                <a href="{{ route('admin.categories.edit', $category) }}" class="adm-btn adm-btn-icon adm-btn-outline" title="Modifier">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
 
-                        <td>
-
-                            <a href="{{ route('admin.categories.edit',$category) }}"
-                               class="btn btn-warning btn-sm">
-
-                                <i class="fa-solid fa-pen"></i>
-
-                            </a>
-
-                            <form action="{{ route('admin.categories.destroy',$category) }}"
-                                  method="POST"
-                                  class="d-inline">
-
-                                @csrf
-
-                                @method('DELETE')
-
-                                <button
-                                    onclick="return confirm('Supprimer cette catégorie ?')"
-                                    class="btn btn-danger btn-sm">
-
-                                    <i class="fa-solid fa-trash"></i>
-
-                                </button>
-
-                            </form>
-
+                                <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="adm-btn adm-btn-icon adm-btn-danger" title="Supprimer">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
-
                     </tr>
-
                 @empty
-
                     <tr>
-
-                        <td colspan="5" class="text-center py-4">
-
-                            Aucune catégorie enregistrée.
-
+                        <td colspan="5" class="text-center py-5">
+                            <i class="fa-solid fa-layer-group text-muted mb-2" style="font-size:36px;opacity:.3;"></i>
+                            <p class="text-muted mb-0">Aucune catégorie pour le moment.</p>
+                            <a href="{{ route('admin.categories.create') }}" class="adm-btn adm-btn-primary mt-3">
+                                <i class="fa-solid fa-plus"></i> Créer la première catégorie
+                            </a>
                         </td>
-
                     </tr>
-
                 @endforelse
-
-                </tbody>
-
-            </table>
-
-            <div class="mt-3">
-
-                {{ $categories->links() }}
-
-            </div>
-
-        </div>
-
+            </tbody>
+        </table>
     </div>
 
+    @if($categories->hasPages())
+        <div class="p-3 border-top">
+            {{ $categories->links() }}
+        </div>
+    @endif
 </div>
 
 @endsection
