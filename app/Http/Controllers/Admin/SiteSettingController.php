@@ -48,6 +48,12 @@ class SiteSettingController extends Controller
             'instagram_url' => 'nullable|string|max:255',
             'linkedin_url' => 'nullable|string|max:255',
             'whatsapp_url' => 'nullable|string|max:255',
+
+            // Statistiques / Chiffres clés
+            'stat_properties' => 'nullable|string|max:50',
+            'stat_projects' => 'nullable|string|max:50',
+            'stat_clients' => 'nullable|string|max:50',
+            'stat_experience' => 'nullable|string|max:50',
         ]);
 
         $settings = SiteSetting::first();
@@ -107,6 +113,17 @@ class SiteSettingController extends Controller
         $settings->instagram_url = $request->instagram_url;
         $settings->linkedin_url = $request->linkedin_url;
         $settings->whatsapp_url = $request->whatsapp_url;
+
+        /*
+        |--------------------------------------------------------------------------
+        | Statistiques / Chiffres clés ("Pourquoi nous faire confiance")
+        |--------------------------------------------------------------------------
+        */
+
+        $settings->stat_properties = $request->stat_properties;
+        $settings->stat_projects = $request->stat_projects;
+        $settings->stat_clients = $request->stat_clients;
+        $settings->stat_experience = $request->stat_experience;
 
         $settings->save();
 
