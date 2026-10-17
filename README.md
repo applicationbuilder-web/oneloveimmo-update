@@ -1,59 +1,209 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏢 OneLove Immo — Plateforme Immobilière & Gestion BTP
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 11">
+  <img src="https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.2+">
+  <img src="https://img.shields.io/badge/Vite-6.x-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
+  <img src="https://img.shields.io/badge/Bootstrap-5.x-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap 5">
+  <img src="https://img.shields.io/badge/Design-Responsive-10B981?style=for-the-badge" alt="Responsive Design">
+  <img src="https://img.shields.io/badge/Licence-Propriétaire-0F4C81?style=for-the-badge" alt="Licence">
 </p>
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📌 Présentation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**OneLove Immo** est une solution web complète, moderne et haute performance dédiée aux agences immobilières et aux entreprises du secteur BTP (Bâtiment et Travaux Publics). 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+La plateforme associe un **site vitrine haut de gamme** conçu pour convertir les visiteurs en acquéreurs ou locataires, et un **portail d'administration complet et sécurisé** permettant de piloter l'ensemble de l'activité en temps réel.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## ✨ Fonctionnalités Principales
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🏠 1. Vitrine Immobilière Publique
+* **Catalogue de Biens Dynamique :** Consultation des biens à la vente et à la location (villas, appartements, duplex, terrains, immeubles, locaux commerciaux).
+* **Moteur de Recherche Multicritère :** Filtres par mot-clé, type de bien, ville, statut de transaction et fourchette de budget.
+* **Fiches Détaillées des Biens :** Caractéristiques techniques (surface, chambres, salles de bain, localisation exacte), galerie photos en haute résolution et contact direct WhatsApp/Email.
+* **Biens en Vedette :** Mise en avant sur la page d'accueil des opportunités prioritaires de l'agence.
 
-## Laravel Sponsors
+### 🏗️ 2. Pôle Construction & BTP
+* **Portfolio des Réalisations :** Présentation soignée des chantiers en cours, terminés ou planifiés.
+* **Demande de Devis en Ligne :** Formulaire interactif complet avec sélection du type de travaux, estimation budgétaire et téléversement de plans ou cahiers des charges.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 🌓 3. Expérience Utilisateur & Dark Mode
+* **Thème Sombre & Clair :** Bascule instantanée sans effet de scintillement au chargement (`pre-render theme script`).
+* **Micro-interactions Fluides :** Animations soignées au survol, cartes élégantes avec effet de profondeur et design épuré.
+* **Identité Visuelle Unique :** Dégradés bleu royal (`#0F4C81`), bleu électrique (`#1478ff`), touches orange énergique (`#F97316`) et or (`#ffbf00`).
 
-### Premium Partners
+### 📱 4. Ergonomie 100% Responsive
+* **Adaptation Multi-Écrans :** Conception optimisée pour smartphones ultra-compacts (320px), téléphones standard, tablettes, ordinateurs portables et écrans 4K.
+* **Tiroir Latéral Tactile (Offcanvas) :** Menu rétractable avec voile d'ombrage flouté sur mobile et tablette.
+* **Contrôles Tactiles Ergonomiques :** Boutons d'actions rapides (WhatsApp, Appel, Email) facilement accessibles au pouce.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 🛡️ 5. Espace Administration Exécutif
+* **Tableau de Bord Intuitif :** Indicateurs clés de performance (KPIs) présentés en grille 2×2 claire sur mobile et 1×4 sur desktop.
+* **Gestion du Catalogue :** Création, modification et suppression des biens et des catégories avec prévisualisation des icônes FontAwesome.
+* **Gestion des Chantiers :** Ajout de photos, suivi de statut et descriptifs techniques des projets BTP.
+* **Traitement des Devis & Contacts :** Boîte de réception centralisée avec mise à jour du statut en un clic (`Nouveau` ➔ `En cours` ➔ `Traité`).
+* **Gestion des Paramètres du Site :** Personnalisation des bannières d'accueil, coordonnées officielles, réseaux sociaux et statistiques de réputation.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🔒 Sécurité & Robustesse
 
-## Code of Conduct
+La plateforme intègre des normes de sécurité rigoureuses pour protéger les données de l'agence et de ses clients :
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* **Middleware d'Authentification Dédié (`AdminMiddleware`) :** Protection stricte de l'ensemble des routes sous le préfixe `/admin/*`. Seuls les comptes authentifiés avec privilèges administrateurs peuvent y accéder.
+* **En-têtes HTTP Sécurisés (`SecurityHeaders`) :** Protection active contre le détournement de clics (`X-Frame-Options: SAMEORIGIN`), le reniflage de type MIME (`X-Content-Type-Options: nosniff`) et politique de référent stricte.
+* **Verrouillage des Inscriptions Publiques :** Fermeture de la création libre de comptes pour empêcher tout accès non sollicité.
+* **Protection CSRF & Validation Robuste :** Tous les formulaires sont signés par jeton CSRF et soumis à une validation stricte côté serveur.
+* **Stockage Sécurisé :** Les fichiers et pièces jointes des clients sont isolés dans le disque de stockage Laravel.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🛠️ Stack Technique
 
-## License
+| Domaine | Technologies Utilisées |
+| :--- | :--- |
+| **Backend** | PHP 8.2+, Laravel 11 (Architecture MVC, Eloquent ORM) |
+| **Frontend** | Blade Templates, HTML5 sémantique, JavaScript ES6+ |
+| **Styling** | Vanilla CSS personnalisé + Bootstrap 5.3 + FontAwesome 6 |
+| **Build Tool** | Vite 6 |
+| **Base de Données** | MySQL / PostgreSQL / SQLite |
+| **Typographie** | Google Fonts (Poppins & Inter) |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🚀 Installation & Démarrage Rapide
+
+### Prérequis
+* PHP ≥ 8.2 avec extensions : `pdo`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `curl`, `fileinfo`
+* Composer ≥ 2.x
+* Node.js ≥ 20.x et npm
+* Base de données (MySQL, MariaDB ou SQLite)
+
+### 1. Cloner le Dépôt
+```bash
+git clone https://github.com/applicationbuilder-web/oneloveimmo-update.git
+cd oneloveimmo-update
+```
+
+### 2. Installer les Dépendances PHP
+```bash
+composer install
+```
+
+### 3. Installer les Dépendances JavaScript
+```bash
+npm install
+```
+
+### 4. Configuration de l'Environnement
+Copiez le fichier d'exemple et configurez vos paramètres de base de données :
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Éditez votre fichier `.env` avec les identifiants de votre base de données :
+```env
+APP_NAME="OneLove Immo"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=onelove_immo
+DB_USERNAME=votre_utilisateur
+DB_PASSWORD=votre_mot_de_passe
+```
+
+### 5. Migrations & Données Initiales
+Exécutez les migrations pour structurer la base de données :
+```bash
+php artisan migrate --seed
+```
+
+Créez le lien symbolique pour les images et documents :
+```bash
+php artisan storage:link
+```
+
+### 6. Compilation des Assets & Lancement des Serveurs
+
+Dans un premier terminal, lancez le serveur d'application :
+```bash
+php artisan serve
+```
+
+Dans un second terminal, démarrez le serveur Vite pour le rechargement à chaud :
+```bash
+npm run dev
+```
+
+L'application est accessible à l'adresse : **`http://localhost:8000`**
+
+---
+
+## 📦 Déploiement en Production
+
+Pour compiler et optimiser les assets pour un hébergement en production :
+```bash
+npm run build
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+---
+
+## 📂 Structure du Projet
+
+```
+oneloveimmo/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Admin/         # Contrôleurs du portail d'administration
+│   │   │   └── Front/         # Contrôleurs du site vitrine public
+│   │   └── Middleware/        # AdminMiddleware & SecurityHeaders
+│   └── Models/                # Modèles Eloquent (Property, Category, Construction, etc.)
+├── bootstrap/                 # Initialisation de l'application & middlewares globaux
+├── database/
+│   ├── migrations/            # Schémas de base de données
+│   └── seeders/               # Données de démarrage
+├── public/                    # Point d'entrée web (index.php, assets compilés)
+├── resources/
+│   ├── css/                   # app.css (Design system, variables & tokens)
+│   ├── js/                    # app.js (Scripts frontend & toggles interactifs)
+│   └── views/
+│       ├── admin/             # Vues Blade de l'espace administration
+│       ├── auth/              # Page de connexion sécurisée
+│       ├── home/              # Sections de la page d'accueil
+│       ├── layouts/           # Gabarits principaux (app.blade.php & admin.blade.php)
+│       └── partials/          # Composants réutilisables (navbar, footer, cartes)
+├── routes/
+│   ├── auth.php               # Routes d'authentification
+│   ├── console.php            # Commandes artisan personnalisées
+│   └── web.php                # Routes web publiques et administratives
+└── ADMIN_DOCUMENTATION.md     # Documentation détaillée de l'administration
+```
+
+---
+
+## 📞 Concepteur & Contact
+
+Pour toute demande d'assistance technique, personnalisation ou nouveau déploiement :
+
+* **Concepteur :** ITOUA GUY BLANC PRINCE
+* **Contact WhatsApp direct :** [+242 06 681 93 88](https://wa.me/242066819388?text=Bonjour,%20je%20vous%20contacte%20concernant%20le%20projet%20OneLove%20Immo.)
+* **Signature :** `Designed by : +242066819388`
+
+---
+
+## 📄 Licence
+
+Ce projet est la propriété exclusive de **OneLove Immo**. Tous droits réservés.
