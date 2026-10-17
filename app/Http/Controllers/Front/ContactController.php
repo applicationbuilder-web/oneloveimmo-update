@@ -13,7 +13,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('contact');
+        $settings = \App\Models\SiteSetting::first();
+
+        return view('contact', compact('settings'));
     }
 
     /**

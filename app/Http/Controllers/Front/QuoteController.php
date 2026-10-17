@@ -49,6 +49,9 @@ class QuoteController extends Controller
 
         }
 
+        // Toujours initialiser le statut à 'nouveau'
+        $validated['status'] = 'nouveau';
+
         Quote::create($validated);
 
         return redirect()

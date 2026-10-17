@@ -156,12 +156,13 @@
                     @endif
 
 
-                    @if($settings?->whatsapp_url)
+                    @if($settings?->getEffectiveWhatsappUrl())
 
-                        <a href="{{ $settings->whatsapp_url }}"
+                        <a href="{{ $settings->getEffectiveWhatsappUrl() }}"
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="text-white">
+                           class="text-white"
+                           title="WhatsApp">
 
                             <i class="fab fa-whatsapp fa-lg"></i>
 
@@ -176,16 +177,25 @@
         </div>
 
 
-        <hr>
+        <hr class="my-4" style="border-color: rgba(255, 255, 255, 0.15);">
 
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 text-center text-md-start small text-white-50">
 
-        <div class="text-center">
+            <div>
+                © {{ date('Y') }} <strong class="text-white">OneLove Immo</strong>. Tous droits réservés.
+            </div>
 
-            © {{ date('Y') }}
-
-            OneLove Immo.
-
-            Tous droits réservés.
+            <div class="d-flex align-items-center flex-wrap justify-content-center gap-2">
+                <span>Designed by :</span>
+                <a href="https://wa.me/242066819388?text={{ urlencode('Bonjour, je vous contacte suite à la visite du site OneLove Immo.') }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="designer-badge"
+                   title="Contacter le concepteur sur WhatsApp">
+                    <i class="fa-brands fa-whatsapp fs-6"></i>
+                    <span>+242066819388</span>
+                </a>
+            </div>
 
         </div>
 

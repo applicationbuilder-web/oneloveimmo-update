@@ -11,6 +11,21 @@
         @yield('title', 'OneLoveImmo')
     </title>
 
+    {{-- Script anti-flash : applique le thème avant le rendu CSS --}}
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem('onelove-theme');
+                if (!theme) {
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
     @vite([
         'resources/css/app.css',
         'resources/js/app.js'
