@@ -1,5 +1,6 @@
 <?php
-
+use App\Models\Property;
+use App\Models\Construction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,48 @@ use App\Http\Controllers\Admin\QuoteController as AdminQuoteController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\SiteSettingController;
 
+
+Route::get('/sitemap.xml', function () {
+
+    $urls = [];
+
+    // Pages principales
+    $urls[] = [
+        'loc' => url('/'),
+        'lastmod' => now()->toAtomString(),
+    ];
+
+    $urls[] = [
+        'loc' => url('/properties'),
+        'lastmod' => now()->toAtomString(),
+    ];
+
+    $urls[] = [
+        'loc' => url('/construction'),
+        'lastmod' => now()->toAtomString(),
+    ];
+
+    // Fiches des biens immobiliers
+    foreach (Property::all() as $property) {
+        $urls[] = [
+            'loc' => route('properties.show', $property),
+            'lastmod' => $property->updated_at->toAtomString(),
+        ];
+    }
+
+    // Fiches des projets de construction
+    foreach (Construction::all() as $construction) {
+        $urls[] = [
+            'loc' => route('construction.show', $construction),
+            'lastmod' => $construction->updated_at->toAtomString(),
+        ];
+    }
+
+    return response()
+        ->view('sitemap', compact('urls'))
+        ->header('Content-Type', 'application/xml; charset=UTF-8');
+
+});
 /*
 |--------------------------------------------------------------------------
 | FRONT OFFICE
