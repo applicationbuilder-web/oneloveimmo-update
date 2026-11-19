@@ -58,7 +58,7 @@
                             @if($construction->status)
                                 <div class="mb-2">
                                     <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-semibold small shadow-sm">
-                                        {{ ucfirst(str_replace('_', ' ', $construction->status)) }}
+                                        {{ ucfirst(str_replace(['termine', '_'], ['terminé', ' '], strtolower($construction->status))) }}
                                     </span>
                                 </div>
                             @endif

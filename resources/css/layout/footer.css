@@ -1,0 +1,75 @@
+
+/* =========================================
+   WHATSAPP FOOTER - ONELOVE IMMO
+========================================= */
+
+.footer-whatsapp-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border: 1px solid rgba(37, 211, 102, 0.25);
+    border-radius: 12px;
+    color: #ffffff;
+    text-decoration: none;
+    background: rgba(37, 211, 102, 0.06);
+    transition: all 0.3s ease;
+}
+
+.footer-whatsapp-link:hover {
+    background: rgba(37, 211, 102, 0.13);
+    border-color: #25D366;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.12);
+}
+
+.footer-whatsapp-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #25D366;
+    color: #ffffff;
+    font-size: 23px;
+}
+
+.footer-whatsapp-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.footer-whatsapp-text small {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.footer-whatsapp-text strong {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
+@media (max-width: 576px) {
+    .footer-whatsapp-link {
+        padding: 9px 12px;
+        gap: 10px;
+    }
+
+    .footer-whatsapp-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 21px;
+    }
+
+    .footer-whatsapp-text strong {
+        font-size: 13px;
+    }
+}
+

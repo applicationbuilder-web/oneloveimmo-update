@@ -268,7 +268,7 @@
 
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold text-dark small">
-                                        Adresse email
+                                        Adresse email <span class="text-danger">*</span>
                                     </label>
                                     <input
                                         type="email"
@@ -277,7 +277,9 @@
                                         value="{{ old('email') }}"
                                         class="form-control form-control-lg @error('email') is-invalid @enderror"
                                         placeholder="jean.moukassa@gmail.com"
-                                        style="border-radius: 10px; font-size: 15px;">
+                                        style="border-radius: 10px; font-size: 15px;"
+                                        required
+                                        >
                                     @error('email')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

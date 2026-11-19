@@ -156,19 +156,39 @@
                     @endif
 
 
-                    @if($settings?->getEffectiveWhatsappUrl())
+                    
+@if($settings?->getEffectiveWhatsappUrl())
 
-                        <a href="{{ $settings->getEffectiveWhatsappUrl() }}"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="text-white"
-                           title="WhatsApp">
+    @php
+        $whatsappDisplay = $settings->whatsapp_url ?: $settings->contact_phone;
 
-                            <i class="fab fa-whatsapp fa-lg"></i>
+        if (str_starts_with($whatsappDisplay, 'http://') || str_starts_with($whatsappDisplay, 'https://')) {
+            $whatsappDisplay = preg_replace('/^https?:\/\/wa\.me\//', '+', $whatsappDisplay);
+        }
 
-                        </a>
+        $whatsappDisplay = preg_replace('/(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})$/', '$1 $2 $3 $4 $5', preg_replace('/\D/', '', $whatsappDisplay));
+        $whatsappDisplay = '+' . ltrim($whatsappDisplay, '+');
+    @endphp
 
-                    @endif
+    <a href="{{ $settings->getEffectiveWhatsappUrl() }}"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="footer-whatsapp-link"
+       title="Contacter OneLove Immo sur WhatsApp">
+
+        <span class="footer-whatsapp-icon">
+            <i class="fab fa-whatsapp"></i>
+        </span>
+
+        <span class="footer-whatsapp-text">
+            <small>Contactez-nous sur WhatsApp</small>
+            <strong>{{ $whatsappDisplay }}</strong>
+        </span>
+
+    </a>
+
+@endif
+
 
                 </div>
 

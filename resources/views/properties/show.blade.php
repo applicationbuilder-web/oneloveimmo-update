@@ -1,6 +1,9 @@
+
 @extends('layouts.app')
 
-@section('title', $property->title . ' — OneLove Immo')
+@section('title', $property->title . ' à ' . $property->city . ' | OneLove Immo')
+
+@section('meta_description', Str::limit('Découvrez ce bien immobilier : ' . $property->title . ', situé à ' . $property->city . '. Prix : ' . number_format($property->price, 0, ',', ' ') . ' FCFA. ' . Str::stripTags($property->description), 155, '...'))
 
 @section('content')
 

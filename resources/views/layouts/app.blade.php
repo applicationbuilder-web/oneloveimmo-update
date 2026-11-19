@@ -64,6 +64,73 @@
 
     @include('partials.footer')
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    // Cette fonctionnalité concerne uniquement le site public.
+    document.querySelectorAll('form').forEach(function (form) {
+
+        const fields = form.querySelectorAll(
+            'input[required], select[required], textarea[required]'
+        );
+
+        fields.forEach(function (field) {
+
+            // Recherche du libellé associé au champ.
+            let label = null;
+
+            if (field.id) {
+                label = form.querySelector(
+                    'label[for="' + field.id + '"]'
+                );
+            }
+
+            if (!label) {
+                label = field.closest('label');
+            }
+
+            // Ajout de l'étoile rouge sans doublon.
+            if (label && !label.textContent.includes('*')) {
+                const star = document.createElement('span');
+                star.className = 'text-danger required-indicator';
+                star.textContent = ' *';
+                star.setAttribute('aria-hidden', 'true');
+                label.appendChild(star);
+            }
+
+            // Messages de validation en français.
+            function updateValidationMessage() {
+
+                if (field.validity.valueMissing) {
+                    field.setCustomValidity(
+                        'Ce champ est obligatoire.'
+                    );
+                } else if (
+                    field.type === 'email' &&
+                    field.validity.typeMismatch
+                ) {
+                    field.setCustomValidity(
+                        'Veuillez saisir une adresse e-mail valide.'
+                    );
+                } else {
+                    field.setCustomValidity('');
+                }
+            }
+
+            updateValidationMessage();
+
+            field.addEventListener('input', updateValidationMessage);
+            field.addEventListener('change', updateValidationMessage);
+            field.addEventListener('invalid', updateValidationMessage);
+
+        });
+    });
+});
+</script>
+
+
 </body>
+
 
 </html>

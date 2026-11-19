@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Accueil')
+@section('title', 'Immobilier et construction au Congo | OneLove Immo')
+
+@section('meta_description', 'Découvrez nos biens immobiliers à vendre ou à louer et nos projets de construction au Congo. OneLove Immo vous accompagne dans vos projets immobiliers.')
 
 @section('content')
 

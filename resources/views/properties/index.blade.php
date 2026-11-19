@@ -1,6 +1,9 @@
+
 @extends('layouts.app')
 
-@section('title', 'Nos Biens Immobiliers — OneLove Immo')
+@section('title', 'Biens immobiliers à vendre et à louer au Congo | OneLove Immo')
+
+@section('meta_description', 'Découvrez nos villas, appartements et terrains à vendre ou à louer à Brazzaville, Pointe-Noire et partout au Congo. Trouvez votre prochain bien immobilier avec OneLove Immo.')
 
 @section('content')
 

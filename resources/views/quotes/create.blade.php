@@ -151,12 +151,13 @@
 
                                 <div class="col-md-6">
                                     <label class="form-label small fw-semibold text-dark">
-                                        Adresse Email
+                                       Adresse Email <span class="text-danger">*</span>
                                     </label>
                                     <input
                                         type="email"
                                         name="email"
                                         id="quote_email"
+                                        required
                                         value="{{ old('email') }}"
                                         class="form-control form-control-lg @error('email') is-invalid @enderror"
                                         placeholder="ngoma.brice@gmail.com"
